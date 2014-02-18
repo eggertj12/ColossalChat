@@ -6,10 +6,16 @@ module.exports = function(grunt) {
   grunt.initConfig({
     ccConfig: {
       app: '',
-      build: 'dist'
+      dist: 'dist',
+      dev: 'dev'
     },
 
     pkg: grunt.file.readJSON('package.json'),
+
+    clean: {
+      dev: ['.tmp', 'dev/*'],
+      dist: ['.tmp', 'dist']
+    },
 
     jshint: {
       options: {
@@ -29,9 +35,9 @@ module.exports = function(grunt) {
     //   options: {
     //     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
     //   },
-    //   build: {
+    //   dist: {
     //     files: {
-    //       'build/<%= pkg.name %>.min.js': ['js/app.js', 'js/*/*.js']
+    //       'dist/<%= pkg.name %>.min.js': ['js/app.js', 'js/*/*.js']
     //     }
     //   }
     // },
@@ -39,15 +45,15 @@ module.exports = function(grunt) {
     useminPrepare: {
       html: ['index.html'],
       options: {
-        dest: '<%= ccConfig.build %>'
+        dest: '<%= ccConfig.dist %>'
       }
     },
 
     usemin: {
-      html: ['<%= ccConfig.build %>/index.html'],
-      css: ['<%= ccConfig.build %>/styles/styles.css'],
+      html: ['<%= ccConfig.dist %>/index.html'],
+      css: ['<%= ccConfig.dist %>/styles/styles.css'],
       options: {
-        dirs: ['<%= ccConfig.build %>']
+        dirs: ['<%= ccConfig.dist %>']
       }
     },
 
@@ -67,7 +73,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: '<%= ccConfig.app %>',
           src: ['*.html', 'views/*.html'],
-          dest: '<%= ccConfig.build %>'
+          dest: '<%= ccConfig.dist %>'
         }]
       }
     },
@@ -78,10 +84,8 @@ module.exports = function(grunt) {
           expand: true,
           dot: true,
           cwd: '<%= ccConfig.app %>',
-          dest: '<%= ccConfig.build %>',
+          dest: '<%= ccConfig.dist %>',
           src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
             'styles/fonts/*'
@@ -89,9 +93,39 @@ module.exports = function(grunt) {
         }, {
           expand: true,
           cwd: '.tmp/images',
-          dest: '<%= ccConfig.build %>/images',
+          dest: '<%= ccConfig.dist %>/images',
           src: [
             'generated/*'
+          ]
+        }]
+      },
+      devfull: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= ccConfig.app %>',
+          dest: '<%= ccConfig.dev %>',
+          src: [
+            'bower_components/**/*',
+            'styles/**/*',
+            'views/**/*',
+            'js/**/*',
+            'index.html'
+          ]
+        }]
+      },
+      dev: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= ccConfig.app %>',
+          dest: '<%= ccConfig.dev %>',
+          src: [
+            'bower_components/**/*',
+            'styles/**/*',
+            'views/**/*',
+            'js/**/*',
+            'index.html'
           ]
         }]
       },
@@ -101,11 +135,26 @@ module.exports = function(grunt) {
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       }
+    },
+
+    watch: {
+      scripts: {
+        files: [
+          'js/**/*.js',
+          'views/**/*.html',
+          'styles/**/*.css'
+        ],
+        tasks: ['jshint', 'copy:dev'],
+        options: {
+          spawn: false,
+        }
+      }
     }
 
   });
 
   // Load the plugin to provdie tasks.
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -113,12 +162,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   // grunt.registerTask('jshint', ['jshint']);
   // grunt.registerTask('concat', ['concat']);
   // grunt.registerTask('uglify', ['uglify']);
   // grunt.registerTask('default', ['jshint', 'uglify']);
-  grunt.registerTask('default', ['useminPrepare', 'jshint', 'concat', 'uglify', 'copy:dist', 'htmlmin', 'usemin']);
+  grunt.registerTask('dist', ['clean:dist', 'useminPrepare', 'jshint', 'concat', 'uglify', 'copy:dist', 'htmlmin', 'usemin']);
+  grunt.registerTask('default', ['clean:dev', 'jshint', 'copy:devfull']);
 
 };
