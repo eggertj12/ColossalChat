@@ -1,7 +1,7 @@
 
 <section id="login">
   <h2 data-ng-bind="lang.greeting"></h2>
-  <input data-ng-model="vm.nick" /><br />
-  <p class="error" data-ng-bind="lang.noNick" data-ng-show="vm.nickValid"></p>
-  <button>Check in!</button>
+  <input placeholder="{{lang.yourNick}}" data-ng-model="vm.nick" /><br />
+  <button ng-click="addUser()">Check in!</button>
+  <p class="error" data-ng-bind="vm.errorMessage" data-ng-show="vm.error"></p>
 </section>

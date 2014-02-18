@@ -1,7 +1,8 @@
 /*globals angular */
 'use strict';
 
-angular.module('ColossalChat', ['ngRoute']).config(['$routeProvider',
+angular.module('ColossalChat', ['ng', 'ngRoute', 'btford.socket-io'])
+.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {

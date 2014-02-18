@@ -11,7 +11,7 @@
         <!-- endbuild -->
 
         <link rel="author" href="humans.txt">
-        <link href='http://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Gabriela|Maven+Pro' rel='stylesheet' type='text/css'>
     </head>
     <body data-ng-app="ColossalChat">
         <header>
@@ -30,14 +30,18 @@
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/momentjs/moment.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/angular-socket-io/socket.js"></script>
         <!-- endbuild -->
 
         <!-- Application code -->
         <!-- build:js js/app.js -->
         <script src="js/app.js"></script>
+        <script src="js/services/Settings.js"></script>
+        <script src="js/services/Socket.js"></script>
+        <script src="js/services/Lang.js"></script>
+        <script src="js/services/ChatBackend.js"></script>
         <script src="js/controllers/MainCtrl.js"></script>
         <script src="js/controllers/ChatCtrl.js"></script>
-        <script src="js/services/LangService.js"></script>
         <!-- endbuild -->
     </body>
 </html>

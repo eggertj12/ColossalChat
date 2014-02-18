@@ -2,9 +2,10 @@
 'use strict';
 
 angular.module('ColossalChat')
-.constant('LangService', {
+.constant('Lang', {
   greeting: 'Welcome to Colossal Chat',
   yourNick: 'Your nick...',
-  noNick: 'Nick not available'
+  noNick: 'Please provide a nick!',
+  unavailableNick: 'Nick not available!'
 
 });

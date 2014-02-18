@@ -3,6 +3,7 @@ body, html {
   padding: 0;
   height:100%;
   width: 100%;
+  font-family: "Maven Pro";
 } 
 
 header {
@@ -13,7 +14,7 @@ header {
 }
 
 section#login {
-  width:300px;
+  width:340px;
   margin: 100px auto;
   border-radius: 10px;
   border: 2px solid rgba(220, 220, 220, 0.7);
@@ -21,3 +22,7 @@ section#login {
   text-align: center;
 }
 
+.error {
+  font-weight: bold;
+  color: #f00;
+}
