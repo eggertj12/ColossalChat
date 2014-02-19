@@ -21,9 +21,10 @@ function($scope, Lang, ChatBackend) {
     } else {
       $scope.vm.error = false;
       promise = ChatBackend.addUser($scope.vm.nick);
-      promise.then(function(available) {
+      var x = promise.then(function(available) {
         console.log(available);
       });
+      if(x) $scope.vm.loggedIn = true;
     }
   };
 }]);

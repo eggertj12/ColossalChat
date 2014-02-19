@@ -3,5 +3,6 @@
   <h2 data-ng-bind="lang.greeting"></h2>
   <input placeholder="{{lang.yourNick}}" data-ng-model="vm.nick" /><br />
   <button ng-click="addUser()">Check in!</button>
+  <div ng-if="vm.loggedIn"><a href="/#/chat">Get to the chat rooms!</a></div>
   <p class="error" data-ng-bind="vm.errorMessage" data-ng-show="vm.error"></p>
 </section>
