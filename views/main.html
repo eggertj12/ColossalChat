@@ -9,5 +9,6 @@
     </div>
     <button class="ink-button" ng-disabled="vm.nick === ''" ng-click="addUser()">Check in!</button>
     <p class="error" data-ng-bind="vm.errorMessage" data-ng-show="vm.error"></p>
+    <div ng-if="vm.loggedIn"><a href="/#/chat">Get to the chat rooms!</a></div>
   </form>
 </section>

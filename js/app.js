@@ -13,6 +13,10 @@ angular.module('ColossalChat', ['ng', 'ngRoute', 'btford.socket-io'])
         templateUrl: 'views/chat.html',
         controller: 'ChatCtrl'
       }).
+      when('/room', {
+        templateUrl: 'views/room.html',
+        controller: 'RoomCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });

@@ -1,1 +1,15 @@
+<div ng-controller="ChatCtrl" ng-app='User'>
 <p>This is the colossal chat view.</p>
+
+<p>This is a list of avaiable chat rooms!</p>
+<p>This should show your nick: {{User.name}} </p>
+<ul>
+    <li ng-repeat="room in chatrooms">{{room.name}}{{room.topic}}</li>
+</ul>
+
+<p>Would you like to make a chat room?</p>
+<input data-ng-model="cr.room"/>
+<a href="/#/room">
+<button ng-click="joinRoom()">Make space!</button>
+</a>
+</div>

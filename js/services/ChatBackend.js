@@ -11,6 +11,28 @@ function($q, Socket) {
         d.resolve(available);
       });
       return d.promise;
+    },
+
+    joinRoom: function(room) {
+        var d = $q.defer();
+        console.log("I created a room!");
+        Socket.emit('joinroom', room, function(available) {
+            d.resolve(available);
+        });
+    },
+
+    sendmsg: function(msgdata) {
+      // chatserver
+      console.log("Sending a msg", msgdata);
+      Socket.emit("sendmsg", function(msgdata) {
+
+      });  
     }
+
+
+   // Socket.on('updatechat', function (message) { 
+   //   console.log(message);
+ //   });
+
   };
 }]);
