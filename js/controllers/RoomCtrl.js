@@ -12,7 +12,9 @@ function($scope, Lang, ChatBackend, User, Room) {
     };
 
     $scope.chat = {
-        messages: {}
+        messages: {},
+        users: {},
+        ops: {}
     };
 
     $scope.msg.roomName = Room.roomName;
@@ -30,6 +32,14 @@ function($scope, Lang, ChatBackend, User, Room) {
         $scope.chat.messages = data2;
     };
 
+    $scope.updateusersHandler = function (room, users, ops)
+    {
+        console.log('someone updating users ', room, users, ops);
+        $scope.chat.users = users;
+        $scope.chat.ops = ops;
+    }
+
     ChatBackend.onUpdateChat($scope.updatechatHandler);
+    ChatBackend.onUpdateUsers($scope.updateusersHandler);
 
 }]);

@@ -45,7 +45,6 @@ function($q, Socket) {
         },
 
         onUpdateChat: function(handler) {
-
             Socket.on('updatechat', handler);
         },
 
