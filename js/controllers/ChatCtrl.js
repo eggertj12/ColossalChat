@@ -12,13 +12,22 @@ function($scope, Lang, ChatBackend, User) {
 
     // Making a viewmodel is the right thing to do?
 
-    $scope.cr = {
+    $scope.vm = {
+        rooms: {},
         room: '',
         pass: ''
+    };
+
+    $scope.roomlistHandler = function(data) {
+        console.log(data);
+        $scope.vm.rooms = data;
     };
 
     $scope.joinRoom = function() {
         ChatBackend.joinRoom($scope.cr);
     };
+
+    ChatBackend.onRoomlist($scope.roomlistHandler);
+    ChatBackend.getRooms();
 
 }]);

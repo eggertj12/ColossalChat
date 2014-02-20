@@ -5,6 +5,10 @@ angular.module('ColossalChat')
 .factory('ChatBackend', ['$q', 'Socket',
 function($q, Socket) {
     return {
+
+        // ------------------------------------------------
+        // emit actions
+        // ------------------------------------------------
         addUser: function(username) {
             var d = $q.defer();
             Socket.emit('adduser', username, function(available) {
@@ -30,7 +34,14 @@ function($q, Socket) {
           // chatserver
             console.log('Sending a msg', msgdata);
             Socket.emit('sendmsg', msgdata);
-        }
+        },
 
+        // ------------------------------------------------
+        // register listeners
+        // ------------------------------------------------
+
+        onRoomlist: function(handler) {
+            Socket.on('roomlist', handler);
+        }
     };
 }]);
