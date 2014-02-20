@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('ChatCtrl', ['$scope', 'Lang', 'ChatBackend', 'User',
-function($scope, Lang, ChatBackend, User) {
+.controller('ChatCtrl', ['$scope', 'Lang', 'ChatBackend', 'User', 'Room',
+function($scope, Lang, ChatBackend, User, Room) {
 
     $scope.greeting = 'Now you have reached a chat room.';
 
@@ -25,6 +25,7 @@ function($scope, Lang, ChatBackend, User) {
 
     $scope.joinRoom = function() {
         ChatBackend.joinRoom($scope.cr);
+        Room.roomName  = $scope.cr.room;
     };
 
     ChatBackend.onRoomlist($scope.roomlistHandler);

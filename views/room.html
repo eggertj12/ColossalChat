@@ -1,7 +1,7 @@
-<h1>Chatroom: {{rm.room}}</h1>
 <div ng-controller="RoomCtrl">
+<h1>Chatroom: {{rm.roomName}}</h1>
     <col>
-        <h2>Hello {{vm.nick}}</h2>
+        <h2>Hello {{rm.userName}}</h2>
         <h3>Messages</h3>
         <p ng-repeat="message in messages">{{message.user}}:{{message.text}}</p>
     </col>

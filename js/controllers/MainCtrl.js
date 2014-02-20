@@ -26,6 +26,7 @@ function($scope, Lang, ChatBackend, User) {
             });
             if(x) {
                 $scope.vm.loggedIn = true;
+                User.name = $scope.vm.nick;
             }
         }
     };
