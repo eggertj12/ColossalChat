@@ -7,6 +7,7 @@
         <title>Colossal Chat</title>
 
         <!-- build:js js/components.js -->
+        <link rel="stylesheet" href="styles/ink-min.css">
         <link rel="stylesheet" href="styles/styles.css">
         <!-- endbuild -->
 
@@ -17,8 +18,8 @@
         <header>
             <h1>Colossal Chat</h1>
         </header>
-        <div data-ng-view="">
-        </div>
+        <section id="templateContainer" data-ng-view="">
+        </section>
 
         <!-- Get socket.io from chatServer -->
         <script src="//localhost:8080/socket.io/socket.io.js"></script>        

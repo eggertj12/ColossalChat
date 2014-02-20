@@ -1,7 +1,13 @@
 
 <section id="login">
   <h2 data-ng-bind="lang.greeting"></h2>
-  <input placeholder="{{lang.yourNick}}" data-ng-model="vm.nick" /><br />
-  <button ng-click="addUser()">Check in!</button>
-  <p class="error" data-ng-bind="vm.errorMessage" data-ng-show="vm.error"></p>
+  <form class="ink-form">
+    <div class="control-group">
+      <div class="control">
+        <input type="text" placeholder="{{lang.yourNick}}" data-ng-model="vm.nick" /><br />
+      </div>
+    </div>
+    <button class="ink-button" ng-disabled="vm.nick === ''" ng-click="addUser()">Check in!</button>
+    <p class="error" data-ng-bind="vm.errorMessage" data-ng-show="vm.error"></p>
+  </form>
 </section>
