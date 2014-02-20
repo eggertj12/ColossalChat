@@ -1,8 +1,10 @@
-app.factory('socket', function($rootScope) 
+angular.module('ColossalChat')
+.factory('socket', function($rootScope)
 {
+    'use strict';
+
     var socket = io.connect();
-    return
-    {
+    return {
         on: function (eventName, callback)
         {
             socket.on(eventName, function ()
@@ -14,7 +16,7 @@ app.factory('socket', function($rootScope)
                 });
             });
         },
-        emit: function (eventName, data, callbacck) {
+        emit: function (eventName, data, callback) {
             socket.emit(eventName, data, function () {
                 var args = arguments;
 
@@ -25,7 +27,7 @@ app.factory('socket', function($rootScope)
                         callback.apply(socket, args);
                     }
                 });
-            })
+            });
         }
     };
 
