@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('MainCtrl', ['$scope', 'Lang', 'ChatBackend',
-function($scope, Lang, ChatBackend) {
+.controller('MainCtrl', ['$scope', 'Lang', 'ChatBackend', 'User',
+function($scope, Lang, ChatBackend, User) {
   $scope.lang = Lang;
 
   // Set up a ViewModel to avoid possibility of nasty value overwriting
