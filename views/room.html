@@ -1,9 +1,9 @@
 <div ng-controller="RoomCtrl">
-<h1>Chatroom: {{rm.roomName}}</h1>
+<h1>Chatroom: {{msg.roomName}}</h1>
     <col>
-        <h2>Hello {{rm.userName}}</h2>
+        <h2>Hello {{msg.userName}}</h2>
         <h3>Messages</h3>
-        <p ng-repeat="message in messages">{{message.user}}:{{message.text}}</p>
+        <p ng-repeat="message in chat.messages">{{message.nick}}:{{message.message}}</p>
     </col>
     <col>
         <h3>Users</h3>
@@ -11,6 +11,6 @@
         </col>
 </div>
 <div>
-    <input placeholder="Your message here" data-ng-model="msg">
+    <input placeholder="Your message here" data-ng-model="inputText">
     <button ng-click="sendMsg()">Hey</button>
 </div>

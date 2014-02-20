@@ -5,21 +5,31 @@ angular.module('ColossalChat')
 .controller('RoomCtrl', ['$scope', 'Lang', 'ChatBackend', 'User', 'Room',
 function($scope, Lang, ChatBackend, User, Room) {
 
-    $scope.rm = {
+    $scope.msg = {
         roomName: '',
         userName: '',
         msg: ''
     };
 
-    $scope.rm.roomName = Room.roomName;
-    $scope.rm.userName = User.name;
+    $scope.chat = {
+        messages: {}
+    };
+
+    $scope.msg.roomName = Room.roomName;
+    $scope.msg.userName = User.name;
 
     $scope.sendMsg = function() {
 
-        $scope.rm.msg = $scope.msg;
-        console.log($scope.rm);
-        ChatBackend.sendmsg($scope.rm);
+        $scope.msg.msg = $scope.inputText;
+        console.log($scope.msg);
+        ChatBackend.sendmsg($scope.msg);
     };
 
+    $scope.updatechatHandler = function (data1, data2) {
+        console.log('welcome to the handler', data1, data2);
+        $scope.chat.messages = data2;
+    };
+
+    ChatBackend.onUpdateChat($scope.updatechatHandler);
 
 }]);

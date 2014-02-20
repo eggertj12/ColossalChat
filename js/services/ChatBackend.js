@@ -42,6 +42,15 @@ function($q, Socket) {
 
         onRoomlist: function(handler) {
             Socket.on('roomlist', handler);
+        },
+
+        onUpdateChat: function(handler) {
+
+            Socket.on('updatechat', handler);
+        },
+
+        onUpdateUsers: function(handler) {
+            Socket.on('updateusers', handler)
         }
     };
 }]);
