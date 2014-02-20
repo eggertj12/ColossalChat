@@ -50,7 +50,7 @@ function($q, Socket) {
         },
 
         onUpdateUsers: function(handler) {
-            Socket.on('updateusers', handler)
+            Socket.on('updateusers', handler);
         }
     };
 }]);
