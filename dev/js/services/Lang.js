@@ -3,9 +3,12 @@
 
 angular.module('ColossalChat')
 .constant('Lang', {
-  greeting: 'Welcome to Colossal Chat',
-  yourNick: 'Your nick...',
-  noNick: 'Please provide a nick!',
-  unavailableNick: 'Nick not available!'
+    greeting: 'Welcome to Colossal Chat',
+    yourNick: 'Your nick...',
+    noNick: 'Please provide a nick!',
+    unavailableNick: 'Nick not available!',
+    checkIn: 'Check in!',
+    roomName: 'Room name',
+    addRoom: 'Make space'
 
 });

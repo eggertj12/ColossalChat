@@ -2,28 +2,36 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('MainCtrl', ['$scope', 'Lang', 'ChatBackend',
-function($scope, Lang, ChatBackend) {
-  $scope.lang = Lang;
+.controller('MainCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User',
+function($scope, $location, Lang, ChatBackend, User) {
+    $scope.lang = Lang;
 
-  // Set up a ViewModel to avoid possibility of nasty value overwriting
-  $scope.vm = {
-    nick: '',
-    error: false,
-    errorMessage: ''
-  };
+    // Set up a ViewModel to avoid possibility of nasty value overwriting
+    $scope.vm = {
+        user: User,
+        error: false,
+        errorMessage: ''
+    };
 
-  $scope.addUser = function() {
-    var promise;
-    if ($scope.vm.nick === '') {
-      $scope.vm.errorMessage = Lang.noNick;
-      $scope.vm.error = true;
-    } else {
-      $scope.vm.error = false;
-      promise = ChatBackend.addUser($scope.vm.nick);
-      promise.then(function(available) {
-        console.log(available);
-      });
-    }
-  };
+    $scope.addUser = function() {
+        var promise;
+        
+        if ($scope.vm.user.nick === '') {
+            $scope.vm.errorMessage = Lang.noNick;
+            $scope.vm.error = true;
+        } else {
+            $scope.vm.error = false;
+            promise = ChatBackend.addUser($scope.vm.user.nick);
+            
+            promise.then(function(available) {
+                if(available) {
+                    $scope.vm.user.loggedIn = true;
+                    $location.path('/chat');
+                } else {
+                    $scope.vm.errorMessage = Lang.unavailableNick;
+                    $scope.vm.error = true;
+                }
+            });
+        }
+    };
 }]);

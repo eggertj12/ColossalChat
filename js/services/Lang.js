@@ -6,6 +6,9 @@ angular.module('ColossalChat')
     greeting: 'Welcome to Colossal Chat',
     yourNick: 'Your nick...',
     noNick: 'Please provide a nick!',
-    unavailableNick: 'Nick not available!'
+    unavailableNick: 'Nick not available!',
+    checkIn: 'Check in!',
+    roomName: 'Room name',
+    addRoom: 'Make space'
 
 });

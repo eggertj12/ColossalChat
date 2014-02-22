@@ -1,1 +1,33 @@
-<p>This is the colossal chat view.</p>
+<div class="column-group gutters" ng-controller="ChatCtrl" ng-app='User'>
+    <div class="large-50">
+        <!-- left column -->
+        <section class="box">
+            <p>Welcome: <span class="nick" ng-bind="vm.user.nick"></span></p>
+            <p>Would you like to make a chat room?</p>
+
+            <form class="ink-form">
+            <div class="control-group">
+                <div class="control">
+                    <input type="text" placeholder="{{lang.roomName}}" data-ng-model="vm.room" autofocus="autofocus" /><br />
+                </div>
+            </div>
+            <button class="ink-button" ng-click="addRoom()">{{lang.addRoom}}</button>
+            </form>
+        </section>
+    </div>
+
+    <div class="large-50">
+        <!-- right column -->
+        <section class="box">
+            <p>This is a list of avaiable chat rooms!</p>
+
+            <ul>
+                <li ng-repeat="(title, room) in vm.rooms">
+                    <h2 ng-bind="title"></h2>
+                    <p ng-bind="room.topic"></p>
+                </li>
+
+            </ul>
+        </section>
+    </div>
+</div>

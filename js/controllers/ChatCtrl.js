@@ -2,17 +2,22 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('ChatCtrl', ['$scope', 'Lang', 'ChatBackend', 'User',
-function($scope, Lang, ChatBackend, User) {
+.controller('ChatCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User',
+function($scope, $location, Lang, ChatBackend, User) {
+    var promise;
+
+    // Shouldn't be here unless logged in
+    if (!User.loggedIn) {
+        $location.path('/');
+    }
 
     $scope.greeting = 'Now you have reached a chat room.';
-
     $scope.lang=Lang;
-    $scope.user=User;
 
     // Making a viewmodel is the right thing to do?
 
     $scope.vm = {
+        user: User,
         rooms: {},
         room: '',
         pass: ''
@@ -23,9 +28,19 @@ function($scope, Lang, ChatBackend, User) {
         $scope.vm.rooms = data;
     };
 
-    $scope.joinRoom = function() {
-        ChatBackend.joinRoom($scope.cr);
+    $scope.addRoom = function() {
+        promise = ChatBackend.joinRoom({
+            room: $scope.vm.room
+        });
+
+        promise.then(function(result) {
+            console.log('Room created:', result);
+            if (result) {
+                ChatBackend.getRooms();
+            }
+        });
     };
+
 
     ChatBackend.onRoomlist($scope.roomlistHandler);
     ChatBackend.getRooms();

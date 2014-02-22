@@ -1,0 +1,16 @@
+<h1>Chatroom: {{rm.room}}</h1>
+<div ng-controller="RoomCtrl">
+    <col>
+        <h2>Hello {{vm.nick}}</h2>
+        <h3>Messages</h3>
+        <p ng-repeat="message in messages">{{message.user}}:{{message.text}}</p>
+    </col>
+    <col>
+        <h3>Users</h3>
+        <p ng-repeat="user in users">{{user}}</p>
+        </col>
+</div>
+<div>
+    <input placeholder="Your message here" data-ng-model="msg">
+    <button ng-click="sendMsg()">Hey</button>
+</div>

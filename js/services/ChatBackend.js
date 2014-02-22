@@ -25,9 +25,10 @@ function($q, Socket) {
         joinRoom: function(room) {
             var d = $q.defer();
             console.log('I created a room!');
-            Socket.emit('joinroom', room, function(available) {
-                d.resolve(available);
+            Socket.emit('joinroom', room, function(result) {
+                d.resolve(result);
             });
+            return d.promise;
         },
 
         sendmsg: function(msgdata) {

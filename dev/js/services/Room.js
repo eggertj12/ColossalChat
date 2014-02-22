@@ -2,12 +2,10 @@
 'use strict';
 
 angular.module('ColossalChat')
-.factory('User', [
+.factory('Room', [
     function() {
         return {
-            name: 'HI MY NAME IS',
-            nick: '',
-            loggedIn: false
+            roomName: 'HI MY NAME IS'
         };
     }
 ]);
