@@ -2,32 +2,37 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('MainCtrl', ['$scope', 'Lang', 'ChatBackend', 'User',
-function($scope, Lang, ChatBackend, User) {
+.controller('MainCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User',
+function($scope, $location, Lang, ChatBackend, User) {
     $scope.lang = Lang;
 
     // Set up a ViewModel to avoid possibility of nasty value overwriting
     $scope.vm = {
-        nick: '',
+        user: User,
         error: false,
         errorMessage: ''
     };
 
     $scope.addUser = function() {
         var promise;
-        if ($scope.vm.nick === '') {
+        
+        if ($scope.vm.user.nick === '') {
             $scope.vm.errorMessage = Lang.noNick;
             $scope.vm.error = true;
         } else {
             $scope.vm.error = false;
-            promise = ChatBackend.addUser($scope.vm.nick);
-            var x = promise.then(function(available) {
-                console.log(available);
+            promise = ChatBackend.addUser($scope.vm.user.nick);
+            
+            promise.then(function(available) {
+                if(available) {
+                    $scope.vm.user.loggedIn = true;
+                    $scope.vm.user.name = $scope.vm.nick;
+                    $location.path('/chat');
+                } else {
+                    $scope.vm.errorMessage = Lang.unavailableNick;
+                    $scope.vm.error = true;
+                }
             });
-            if(x) {
-                $scope.vm.loggedIn = true;
-                User.name = $scope.vm.nick;
-            }
         }
     };
 }]);

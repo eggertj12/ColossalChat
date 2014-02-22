@@ -12,14 +12,13 @@
         <!-- endbuild -->
 
         <link rel="author" href="humans.txt">
-        <link href='http://fonts.googleapis.com/css?family=Gabriela|Maven+Pro' rel='stylesheet' type='text/css'>
     </head>
     <body data-ng-app="ColossalChat">
         <header>
             <h1>Colossal Chat</h1>
         </header>
-        <section id="templateContainer" data-ng-view="">
-        </section>
+        <div class="ink-grid" id="templateContainer" data-ng-view="">
+        </div>
 
         <!-- Get socket.io from chatServer -->
         <script src="//localhost:8080/socket.io/socket.io.js"></script>        

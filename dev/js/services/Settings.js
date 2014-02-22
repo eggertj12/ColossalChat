@@ -3,5 +3,5 @@
 
 angular.module('ColossalChat')
 .constant('Settings', {
-  BACKEND_URL: 'http://localhost:8080'
+    BACKEND_URL: 'http://localhost:8080'
 });

@@ -1,13 +1,14 @@
 
-<section id="login">
+<section id="login" class="box">
   <h2 data-ng-bind="lang.greeting"></h2>
   <form class="ink-form">
     <div class="control-group">
       <div class="control">
-        <input type="text" placeholder="{{lang.yourNick}}" data-ng-model="vm.nick" /><br />
+        <input type="text" placeholder="{{lang.yourNick}}" data-ng-model="vm.user.nick" autofocus="autofocus" /><br />
       </div>
     </div>
-    <button class="ink-button" ng-disabled="vm.nick === ''" ng-click="addUser()">Check in!</button>
+    <button class="ink-button" ng-disabled="vm.user.nick === '' || vm.user.loggedIn" ng-click="addUser()">{{lang.checkIn}}</button>
     <p class="error" data-ng-bind="vm.errorMessage" data-ng-show="vm.error"></p>
+    <div ng-if="vm.user.loggedIn"><a href="/#/chat">Get to the chat rooms!</a></div>
   </form>
 </section>
