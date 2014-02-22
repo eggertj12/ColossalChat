@@ -55,7 +55,6 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     $scope.sendMsg = function() {
         $scope.vm.msg.roomName = Room.roomName;
         $scope.vm.msg.msg = $scope.inputText;
-        console.log($scope.vm.msg);
         ChatBackend.sendmsg($scope.vm.msg);
     };
 
@@ -87,12 +86,13 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     };
 
     $scope.updateusersHandler = function (room, users, ops) {
-        if (room === $scope.vm.msg.roomName) {
+        if (room === Room.roomName) {
             $scope.vm.chat.users = users;
             $scope.vm.chat.ops = ops;
+            console.log($scope.vm.chat.users, $scope.vm.chat.ops);
         }
     };
-
+    // Too global
     $scope.userlistHandler = function (userlist) {
         $scope.vm.chat.users = userlist;
     };

@@ -33,7 +33,6 @@ function($q, Socket) {
 
         sendmsg: function(msgdata) {
           // chatserver
-            console.log('Sending a msg', msgdata);
             Socket.emit('sendmsg', msgdata);
         },
 
