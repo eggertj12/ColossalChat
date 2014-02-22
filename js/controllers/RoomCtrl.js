@@ -11,9 +11,10 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     }
 
     $scope.vm = {
+        user: User,
+        
         msg: {
-            roomName: '',
-            userName: '',
+            roomName: Room.roomName,
             msg: ''
         },
 
@@ -34,9 +35,8 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
             selUser: ''
         }
     };
-
+    $scope.vm.user = User;
     $scope.vm.msg.roomName = Room.roomName;
-    $scope.vm.msg.userName = User.name;
 
     $scope.showDisplayMenu = function() {
         $scope.vm.dostuff.displayMenu = true;
@@ -53,7 +53,7 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     };
 
     $scope.sendMsg = function() {
-
+        $scope.vm.msg.roomName = Room.roomName;
         $scope.vm.msg.msg = $scope.inputText;
         console.log($scope.vm.msg);
         ChatBackend.sendmsg($scope.vm.msg);
@@ -80,16 +80,17 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     // Chatbackend handlers
 
     $scope.updatechatHandler = function (data1, data2) {
-        if(data1 === Room.room) {
+        if(data1 === Room.roomName) {
             $scope.vm.chat.messages = data2;
         }
         
     };
 
     $scope.updateusersHandler = function (room, users, ops) {
-        console.log('someone updating users ', room, users, ops);
-        $scope.vm.chat.users = users;
-        $scope.vm.chat.ops = ops;
+        if (room === $scope.vm.msg.roomName) {
+            $scope.vm.chat.users = users;
+            $scope.vm.chat.ops = ops;
+        }
     };
 
     $scope.userlistHandler = function (userlist) {
