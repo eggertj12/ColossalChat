@@ -117,6 +117,10 @@ function($q, Socket) {
 
         onServerMessage: function(handler) {
             Socket.on('servermessage', handler);
+        },
+
+        onRecvPrvMessage: function(handler) {
+            Socket.on('recv_privatemsg', handler);
         }
     };
 }]);

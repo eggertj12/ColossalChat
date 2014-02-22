@@ -7,8 +7,8 @@
     </col>
     <col>
         <h3>Users</h3>
-                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.users">{{user}}</p>
-                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.ops">{{user}}</p>
+                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.users">{{user}}</p>
+                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.ops">{{user}}</p>
     </col>
         <div ng-if="vm.dostuff.displayMenu">
             <button ng-click ="">Send private message</button>

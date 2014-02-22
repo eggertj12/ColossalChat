@@ -25,8 +25,7 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
 
         chat: {
             messages: {},
-            users: [],
-            ops: {}
+            room: Room
         },
         
         dostuff: {
@@ -85,11 +84,11 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
         
     };
 
-    $scope.updateusersHandler = function (room, users, ops) {
-        if (room === Room.roomName) {
-            $scope.vm.chat.users = users;
-            $scope.vm.chat.ops = ops;
-            console.log($scope.vm.chat.users, $scope.vm.chat.ops);
+    $scope.updateusersHandler = function (roomn, usersn, opsn) {
+        if (roomn === Room.roomName) {
+            Room.users = usersn;
+            Room.ops = opsn;
+            console.log(usersn, $scope.vm.chat.users, opsn, $scope.vm.chat.ops);
         }
     };
     // Too global
@@ -97,8 +96,15 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
         $scope.vm.chat.users = userlist;
     };
 
+    $scope.recvPrvmsgHandler = function(from, msg) {
+        console.alert(from, ': ', msg);
+    };
+
+    //Bind chatbackend thingamabobs
+
     ChatBackend.onUpdateChat($scope.updatechatHandler);
     ChatBackend.onUpdateUsers($scope.updateusersHandler);
     ChatBackend.onUserList($scope.userlistHandler);
+    ChatBackend.onRecvPrvMessage($scope.recvprvmsgHandler);
 
 }]);
