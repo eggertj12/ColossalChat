@@ -96,6 +96,14 @@ function($q, Socket) {
             Socket.emit('users');
         },
 
+        setTopic: function(topic) {
+            var d = $q.defer();
+            Socket.emit('settopic', topic, function(success) {
+                d.resolve(success);
+            });
+            return d.promise;
+        },
+
         // ------------------------------------------------
         // register listeners
         // ------------------------------------------------

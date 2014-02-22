@@ -1,7 +1,7 @@
 /*globals angular */
 'use strict';
 
-angular.module('ColossalChat', ['ng', 'ngRoute', 'btford.socket-io'])
+angular.module('ColossalChat', ['ng', 'ngRoute', 'ui.bootstrap', 'btford.socket-io'])
 .config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.

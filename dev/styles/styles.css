@@ -3,7 +3,7 @@ body, html {
   padding: 0;
   height:100%;
   width: 100%;
-/*  font-family: "Maven Pro";*/
+  font-family: "Ubuntu";
 }
 
 body {
@@ -33,9 +33,24 @@ section#login {
   border-radius: 10px;
   border: 2px solid rgba(220, 220, 220, 0.7);
   padding: 20px;
+  margin: 10px;
 }
 
 .error {
   font-weight: bold;
   color: #f00;
+}
+
+section#roomList {
+
+}
+
+section#roomList ul li {
+  list-style: none;
+}
+
+section#roomList .roomTitle {
+  font-size: 150%;
+  color:#000;
+  cursor: pointer;
 }

@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('RoomCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User', 'Room', 'Roomjoin',
-function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
+.controller('RoomCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User', 'Room',
+function($scope, $location, Lang, ChatBackend, User, Room) {
 
     // Shouldn't be here unless logged in
     if (!User.loggedIn) {
@@ -46,12 +46,13 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     };
 
     $scope.createTestRoom = function () {
-        Roomjoin.room = 'IX';
         $scope.vm.msg.roomName = 'IX';
         $scope.vm.msg.userName = 'Tester';
         User.name = 'Tester';
         ChatBackend.addUser(User.name);
-        ChatBackend.joinRoom(Roomjoin);
+        ChatBackend.joinRoom({
+            room: 'IX'
+        });
     };
 
     $scope.sendMsg = function() {

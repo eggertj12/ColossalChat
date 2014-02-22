@@ -2,78 +2,101 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('RoomCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User', 'Room', 'Roomjoin',
-function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
+.controller('RoomCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User', 'Room',
+function($scope, $location, Lang, ChatBackend, User, Room) {
 
     // Shouldn't be here unless logged in
     if (!User.loggedIn) {
         $location.path('/');
     }
 
-    $scope.msg = {
-        roomName: '',
-        userName: '',
-        msg: ''
+    $scope.vm = {
+        msg: {
+            roomName: '',
+            userName: '',
+            msg: ''
+        },
+
+        pmsg : {
+            userName : '',
+            msg: '',
+            displayPmsgs: false
+        },
+
+        chat: {
+            messages: {},
+            users: [],
+            ops: {}
+        },
+        
+        dostuff: {
+            displayMenu: false,
+            selUser: ''
+        },
+
+        user: User
     };
 
-    $scope.chat = {
-        messages: {},
-        users: [],
-        ops: {}
-    };
-    $scope.dostuff = {
-        displayMenu: false,
-        selUser: ''
-    };
-
-    $scope.msg.roomName = Room.roomName;
-    $scope.msg.userName = User.name;
+    $scope.vm.msg.roomName = Room.roomName;
+    $scope.vm.msg.userName = User.name;
 
     $scope.showDisplayMenu = function() {
-        console.log($scope.dostuff.displayMenu);
+        $scope.vm.dostuff.displayMenu = true;
+        console.log($scope.vm.dostuff.displayMenu);
     };
 
     $scope.createTestRoom = function () {
-        Roomjoin.room = 'IX';
-        $scope.msg.roomName = 'IX';
-        $scope.msg.userName = 'Tester';
+        $scope.vm.msg.roomName = 'IX';
+        $scope.vm.msg.userName = 'Tester';
         User.name = 'Tester';
         ChatBackend.addUser(User.name);
-        ChatBackend.joinRoom(Roomjoin);
+        ChatBackend.joinRoom({
+            room: 'IX'
+        });
     };
 
     $scope.sendMsg = function() {
 
-        $scope.msg.msg = $scope.inputText;
-        console.log($scope.msg);
-        ChatBackend.sendmsg($scope.msg);
+        $scope.vm.msg.msg = $scope.inputText;
+        console.log($scope.vm.msg);
+        ChatBackend.sendmsg($scope.vm.msg);
     };
 
     
     $scope.actionUser = function(user) {
-        $scope.dostuff.displayMenu = true;
-        $scope.dostuff.selUser = user;
-        console.log($scope.dostuff.selUser, $scope.dostuff.displayMenu);
+        $scope.vm.dostuff.displayMenu = true;
+        $scope.vm.dostuff.selUser = user;
+        console.log($scope.vm.dostuff.selUser, $scope.vm.dostuff.displayMenu);
     };
+
+    // actions on users
+    $scope.sendPrvmsg = function() {
+        var promise;
+        promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
+        promise.then(function(available){
+            console.log(available);
+        });
+    };
+
 
 
     // Chatbackend handlers
 
     $scope.updatechatHandler = function (data1, data2) {
         if(data1 === Room.room) {
-            $scope.chat.messages = data2;
+            $scope.vm.chat.messages = data2;
         }
         
     };
 
     $scope.updateusersHandler = function (room, users, ops) {
         console.log('someone updating users ', room, users, ops);
-        $scope.chat.users = users;
-        $scope.chat.ops = ops;
+        $scope.vm.chat.users = users;
+        $scope.vm.chat.ops = ops;
     };
 
     $scope.userlistHandler = function (userlist) {
-        $scope.chat.users = userlist;
+        $scope.vm.chat.users = userlist;
     };
 
     ChatBackend.onUpdateChat($scope.updatechatHandler);

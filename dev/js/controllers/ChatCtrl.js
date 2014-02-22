@@ -1,9 +1,8 @@
-/*globals angular */
 'use strict';
 
 angular.module('ColossalChat')
-.controller('ChatCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User', 'Room', 'Roomjoin',
-function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
+.controller('ChatCtrl', ['$scope', '$location', '$modal', 'Lang', 'ChatBackend', 'User', 'Room',
+function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
     var promise;
 
     // Shouldn't be here unless logged in
@@ -34,19 +33,57 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
         });
 
         promise.then(function(result) {
-            console.log('Room created:', result);
+            console.log('Room created: ', result);
             if (result) {
                 ChatBackend.getRooms();
             }
         });
+
+        $scope.vm.room = '';
     };
 
-    $scope.joinRoom = function() {
-        Roomjoin.room = $scope.cr.room;
-        ChatBackend.joinRoom(Roomjoin);
+    $scope.joinRoom = function(room) {
+        promise = ChatBackend.joinRoom({
+            room: room
+        });
 
+        promise.then(function(result, reason) {
+            console.log('Room joined: ', result, reason);
+            if (result) {
+                Room.roomName = room;
+                $location.path('/room');
+            }
+        });
     };
 
+    $scope.isOp = function(room) {
+        return angular.isDefined(room.ops[User.nick]);
+    };
+
+    $scope.showSetTopic = function(room, roomName) {
+        var modalInstance = $modal.open({
+            templateUrl: 'templates/settopic.html'
+        });
+
+        modalInstance.result.then(function(topic) {
+        
+            promise = ChatBackend.setTopic({
+                room: roomName,
+                topic: topic
+            });
+
+            promise.then(function(result) {
+                if (result) {
+                    Room.topic = topic;
+                    room.topic = topic;
+                }
+            });
+        
+        }, function () {
+            console.log('Settopic cancelled');
+        });
+
+    };
 
     ChatBackend.onRoomlist($scope.roomlistHandler);
     ChatBackend.getRooms();

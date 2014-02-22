@@ -8,7 +8,8 @@ angular.module('ColossalChat')
             name: 'default',
             nick: '',
             loggedIn: false,
-            op: []
+            op: [],
+            pms: {}
         };
     }
 ]);
