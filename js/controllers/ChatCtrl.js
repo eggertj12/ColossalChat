@@ -34,17 +34,25 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
         });
 
         promise.then(function(result) {
-            console.log('Room created:', result);
+            console.log('Room created: ', result);
             if (result) {
                 ChatBackend.getRooms();
             }
         });
     };
 
-    $scope.joinRoom = function() {
-        Roomjoin.room = $scope.cr.room;
-        ChatBackend.joinRoom(Roomjoin);
+    $scope.joinRoom = function(room) {
+        promise = ChatBackend.joinRoom({
+            room: room
+        });
 
+        promise.then(function(result, reason) {
+            console.log('Room joined: ', result, reason);
+            if (result) {
+                Room.roomName = room;
+                $location.path('/room');
+            }
+        });
     };
 
 

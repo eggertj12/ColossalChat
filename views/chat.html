@@ -23,7 +23,7 @@
 
             <ul>
                 <li ng-repeat="(title, room) in vm.rooms">
-                    <h2 ng-bind="title"></h2>
+                    <a ng-click="joinRoom(title)"><h2 ng-bind="title"></h2></a>
                     <p ng-bind="room.topic"></p>
                 </li>
 
