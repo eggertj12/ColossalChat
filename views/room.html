@@ -2,7 +2,7 @@
 <button ng-click="showDisplayMenu()">Show display menu</button>
 <h1>Chatroom: {{vm.msg.roomName}}</h1>
     <col>
-        <h2>Hello {{vm.msg.userName}}</h2>
+        <h2>Hello {{vm.user.nick}}</h2>
         <h3>Messages</h3>
         <p ng-repeat="message in chat.messages">{{message.nick}}:{{message.message}}</p>
     </col>
