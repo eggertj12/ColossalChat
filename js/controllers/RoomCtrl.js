@@ -11,7 +11,6 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     }
 
     $scope.vm = {
-        user: User,
         
         msg: {
             roomName: Room.roomName,
@@ -37,7 +36,6 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
 
         user: User
     };
-    $scope.vm.user = User;
     $scope.vm.msg.roomName = Room.roomName;
 
     $scope.showDisplayMenu = function() {

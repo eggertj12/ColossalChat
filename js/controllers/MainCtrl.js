@@ -27,7 +27,6 @@ function($scope, $location, Lang, ChatBackend, User) {
                 if(available) {
                     $scope.vm.user.loggedIn = true;
                     $scope.vm.user.name = $scope.vm.nick;
-                    User.nick = $scope.vm.nick;
                     $location.path('/chat');
 
                 } else {
