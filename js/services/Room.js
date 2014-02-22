@@ -5,7 +5,10 @@ angular.module('ColossalChat')
 .factory('Room', [
     function() {
         return {
-            roomName: 'HI MY NAME IS'
+            roomName: '',
+            topic: '',
+            users: [],
+            ops: []
         };
     }
 ]);

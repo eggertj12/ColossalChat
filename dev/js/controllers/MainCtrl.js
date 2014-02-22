@@ -26,6 +26,7 @@ function($scope, $location, Lang, ChatBackend, User) {
             promise.then(function(available) {
                 if(available) {
                     $scope.vm.user.loggedIn = true;
+                    $scope.vm.user.name = $scope.vm.nick;
                     $location.path('/chat');
                 } else {
                     $scope.vm.errorMessage = Lang.unavailableNick;

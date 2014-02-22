@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('ChatCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User',
-function($scope, $location, Lang, ChatBackend, User) {
+.controller('ChatCtrl', ['$scope', '$location', 'Lang', 'ChatBackend', 'User', 'Room', 'Roomjoin',
+function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     var promise;
 
     // Shouldn't be here unless logged in
@@ -39,6 +39,12 @@ function($scope, $location, Lang, ChatBackend, User) {
                 ChatBackend.getRooms();
             }
         });
+    };
+
+    $scope.joinRoom = function() {
+        Roomjoin.room = $scope.cr.room;
+        ChatBackend.joinRoom(Roomjoin);
+
     };
 
 

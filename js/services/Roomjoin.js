@@ -2,13 +2,11 @@
 'use strict';
 
 angular.module('ColossalChat')
-.factory('User', [
+.factory('Roomjoin', [
     function() {
         return {
-            name: 'default',
-            nick: '',
-            loggedIn: false,
-            op: []
+            room: 'default',
+            pass: ''
         };
     }
 ]);
