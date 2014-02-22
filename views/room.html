@@ -1,19 +1,17 @@
 <div ng-controller="RoomCtrl">
-<button ng-click="showDisplayMenu()">Show display menu</button>
 <h1>Chatroom: {{vm.msg.roomName}}</h1>
     <col>
         <h2>Hello {{vm.user.nick}}</h2>
         <h3>Messages</h3>
-        <p ng-repeat="message in chat.messages">{{message.nick}}:{{message.message}}</p>
+        <p ng-repeat="message in vm.chat.messages">{{message.nick}}:{{message.message}}</p>
     </col>
     <col>
         <h3>Users</h3>
-                <p ng-click="actionUser(user)" ng-repeat="user in chat.users">{{user}}</p>
-                <p ng-click="actionUser(user)" ng-repeat="user in chat.ops">{{user}}</p>
-            </col>
+                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.users">{{user}}</p>
+                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.ops">{{user}}</p>
+    </col>
         <div ng-if="vm.dostuff.displayMenu">
-            <h1>LOOK AT ME</h1>
-            <button ng-click ="">Send private message</button>
+            <button ng-click ="sendPrvmsg()">Send private message</button>
             <button ng-click ="">Kick user</button>
             <button ng-click ="">Ban user</button>
             <button ng-click ="">Promote user></button>

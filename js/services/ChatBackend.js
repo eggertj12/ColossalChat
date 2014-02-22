@@ -33,7 +33,6 @@ function($q, Socket) {
 
         sendmsg: function(msgdata) {
           // chatserver
-            console.log('Sending a msg', msgdata);
             Socket.emit('sendmsg', msgdata);
         },
 
@@ -46,6 +45,7 @@ function($q, Socket) {
             Socket.emit('privatemsg', sendObj, function(available) {
                 d.resolve(available);
             });
+            return d.promise;
         },
 
         kickUser: function(usern, roomn) {
@@ -126,6 +126,10 @@ function($q, Socket) {
 
         onServerMessage: function(handler) {
             Socket.on('servermessage', handler);
+        },
+
+        onRecvPrvMessage: function(handler) {
+            Socket.on('recv_privatemsg', handler);
         }
     };
 }]);
