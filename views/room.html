@@ -1,4 +1,5 @@
 <div ng-controller="RoomCtrl">
+<button ng-click="showDisplayMenu()">Show display menu</button>
 <h1>Chatroom: {{msg.roomName}}</h1>
     <col>
         <h2>Hello {{msg.userName}}</h2>
@@ -7,11 +8,14 @@
     </col>
     <col>
         <h3>Users</h3>
-        <p ng-repeat="user in chat.users">{{user}}</p>
-        <p ng-repeat="user in chat.ops">{{user}}</p>
-        </col>
-</div>
-<div>
+                <p ng-click="actionUser(user)" ng-repeat="user in chat.users">{{user}}</p>
+                <p ng-click="actionUser(user)" ng-repeat="user in chat.ops">{{user}}</p>
+            </col>
+        </div>
+        <div ng-if="dostuff.displayMenu"><h1>LOOK AT ME</h1>
+            <button ng-click ="">Action!</button>
+        </div>
     <input placeholder="Your message here" data-ng-model="inputText">
     <button ng-click="sendMsg()">Hey</button>
+    <button ng-click="createTestRoom()">Create test room</button>
 </div>

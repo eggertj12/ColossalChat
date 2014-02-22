@@ -24,7 +24,7 @@ function($q, Socket) {
 
         joinRoom: function(room) {
             var d = $q.defer();
-            console.log('I created a room!');
+            console.log('Room: ', room, ' created.');
             Socket.emit('joinroom', room, function(available) {
                 d.resolve(available);
             });
@@ -34,6 +34,10 @@ function($q, Socket) {
           // chatserver
             console.log('Sending a msg', msgdata);
             Socket.emit('sendmsg', msgdata);
+        },
+
+        requestUserlist: function() {
+            Socket.emit('users');
         },
 
         // ------------------------------------------------
@@ -50,6 +54,14 @@ function($q, Socket) {
 
         onUpdateUsers: function(handler) {
             Socket.on('updateusers', handler);
+        },
+
+        onUserList: function(handler) {
+            Socket.on('userlist', handler);
+        },
+
+        onServerMessage: function(handler) {
+            Socket.on('servermessage', handler);
         }
     };
 }]);

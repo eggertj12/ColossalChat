@@ -5,7 +5,8 @@ angular.module('ColossalChat')
 .factory('User', [
     function() {
         return {
-            name: 'default'
+            name: 'default',
+            op: []
         };
     }
 ]);
