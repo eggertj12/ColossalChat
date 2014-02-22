@@ -17,8 +17,8 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
             msg: ''
         },
 
-        pmsg = {
-            userName = '',
+        pmsg : {
+            userName : '',
             msg: '',
             displayPmsgs: false
         },
