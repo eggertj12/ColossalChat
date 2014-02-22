@@ -18,12 +18,14 @@
 
     <div class="large-50">
         <!-- right column -->
-        <section class="box">
+        <section class="box" id="roomList">
             <p>This is a list of avaiable chat rooms!</p>
 
             <ul>
                 <li ng-repeat="(title, room) in vm.rooms">
-                    <a ng-click="joinRoom(title)"><h2 ng-bind="title"></h2></a>
+                    <a class="roomTitle" ng-click="joinRoom(title)" ng-bind="title"></a>
+                    <span class="opCount">Ops: <span ng-bind="room.ops | count"></span></span>
+                    <span class="userCount">Users: <span ng-bind="room.users | count"></span></span>
                     <p ng-bind="room.topic"></p>
                 </li>
 

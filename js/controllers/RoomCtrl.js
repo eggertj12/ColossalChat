@@ -33,7 +33,9 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
         dostuff: {
             displayMenu: false,
             selUser: ''
-        }
+        },
+
+        user: User
     };
     $scope.vm.user = User;
     $scope.vm.msg.roomName = Room.roomName;
