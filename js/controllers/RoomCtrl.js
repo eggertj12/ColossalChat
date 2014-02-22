@@ -11,6 +11,12 @@ function($scope, Lang, ChatBackend, User, Room, Roomjoin) {
         msg: ''
     };
 
+    $scope.pmsg = {
+        userName: '',
+        msg: '',
+        displayPmsgs: false
+    };
+
     $scope.chat = {
         messages: {},
         users: [],
@@ -26,7 +32,7 @@ function($scope, Lang, ChatBackend, User, Room, Roomjoin) {
 
     $scope.showDisplayMenu = function() {
         console.log($scope.dostuff.displayMenu);
-    }
+    };
 
     $scope.createTestRoom = function () {
         Roomjoin.room = 'IX';
@@ -50,6 +56,16 @@ function($scope, Lang, ChatBackend, User, Room, Roomjoin) {
         $scope.dostuff.selUser = user;
         console.log($scope.dostuff.selUser, $scope.dostuff.displayMenu);
     };
+
+    // actions on users
+    $scope.sendPrvmsg = function() {
+        var promise;
+        promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
+        promise.then(function(available){
+            console.log(available);
+        });
+    };
+
 
 
     // Chatbackend handlers

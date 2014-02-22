@@ -12,8 +12,13 @@
                 <p ng-click="actionUser(user)" ng-repeat="user in chat.ops">{{user}}</p>
             </col>
         </div>
-        <div ng-if="dostuff.displayMenu"><h1>LOOK AT ME</h1>
-            <button ng-click ="">Action!</button>
+        <div ng-if="dostuff.displayMenu">
+            <h1>LOOK AT ME</h1>
+            <button ng-click ="">Send private message</button>
+            <button ng-click ="">Kick user</button>
+            <button ng-click ="">Ban user</button>
+            <button ng-click ="">Promote user></button>
+            <button ng-click ="">Demote user</button>
         </div>
     <input placeholder="Your message here" data-ng-model="inputText">
     <button ng-click="sendMsg()">Hey</button>
