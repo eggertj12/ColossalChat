@@ -37,6 +37,61 @@ function($q, Socket) {
             Socket.emit('sendmsg', msgdata);
         },
 
+        sendPrvmsg: function(user, msg) {
+            var sendObj = {
+                nick: user,
+                message: msg
+            };
+            var d = $q.defer();
+            Socket.emit('privatemsg', sendObj, function(available) {
+                d.resolve(available);
+            });
+        },
+
+        kickUser: function(usern, roomn) {
+            var kickObj = {
+                user: usern,
+                room: roomn
+            };
+            var d = $q.defer();
+            Socket.emit('kick', kickObj, function(available) {
+                d.resolve(available);
+            });
+        },
+
+        opUser: function(usern, roomn) {
+            var opObj = {
+                user: usern,
+                room: roomn
+            };
+            var d = $q.defer();
+            Socket.emit('op', opObj, function(available) {
+                d.resolve(available);
+            });
+        },
+
+        deopUser: function(usern, roomn) {
+            var deopObj = {
+                user: usern,
+                room: roomn
+            };
+            var d = $q.defer();
+            Socket.emit('deop', deopObj, function(available) {
+                d.resolve(available);
+            });
+        },
+
+        banUser: function(usern, roomn) {
+            var banObj = {
+                user: usern,
+                room: roomn
+            };
+            var d = $q.defer();
+            Socket.emit('ban', banObj, function(available) {
+                d.resolve(available);
+            });
+        },
+
         requestUserlist: function() {
             Socket.emit('users');
         },
