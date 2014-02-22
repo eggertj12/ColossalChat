@@ -39,3 +39,17 @@ section#login {
   font-weight: bold;
   color: #f00;
 }
+
+section#roomList {
+
+}
+
+section#roomList ul li {
+  list-style: none;
+}
+
+section#roomList .roomTitle {
+  font-size: 150%;
+  color:#000;
+  cursor: pointer;
+}
