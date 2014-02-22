@@ -11,7 +11,7 @@
                 <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.ops">{{user}}</p>
     </col>
         <div ng-if="vm.dostuff.displayMenu">
-            <button ng-click ="">Send private message</button>
+            <button ng-click ="sendPrvmsg()">Send private message</button>
             <button ng-click ="">Kick user</button>
             <button ng-click ="">Ban user</button>
             <button ng-click ="">Promote user></button>

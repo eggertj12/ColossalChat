@@ -67,9 +67,9 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     // actions on users
     $scope.sendPrvmsg = function() {
         var promise;
-        promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
+       // promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
+        promise = ChatBackend.sendPrvmsg(User.nick, 'hi');
         promise.then(function(available){
-            console.log(available);
         });
     };
 
@@ -97,7 +97,7 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     };
 
     $scope.recvPrvmsgHandler = function(from, msg) {
-        console.alert(from, ': ', msg);
+        console.log(from, ': ', msg);
     };
 
     //Bind chatbackend thingamabobs
@@ -105,6 +105,6 @@ function($scope, $location, Lang, ChatBackend, User, Room, Roomjoin) {
     ChatBackend.onUpdateChat($scope.updatechatHandler);
     ChatBackend.onUpdateUsers($scope.updateusersHandler);
     ChatBackend.onUserList($scope.userlistHandler);
-    ChatBackend.onRecvPrvMessage($scope.recvprvmsgHandler);
+    ChatBackend.onRecvPrvMessage($scope.recvPrvmsgHandler);
 
 }]);

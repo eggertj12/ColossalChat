@@ -45,6 +45,7 @@ function($q, Socket) {
             Socket.emit('privatemsg', sendObj, function(available) {
                 d.resolve(available);
             });
+            return d.promise;
         },
 
         kickUser: function(usern, roomn) {
