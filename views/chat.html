@@ -1,8 +1,8 @@
-<div class="row" ng-controller="ChatCtrl" ng-app='User'>
-    <div class="col-lg-6 col-md-6">
+<div class="row" ng-controller="ChatCtrl">
+    <div class="col-lg-6 col-md-6 col-sm-6">
         <!-- left column -->
         <section class="box">
-            <p>Welcome: <span class="nick" ng-bind="vm.user.nick"></span></p>
+            <p>Welcome: <span class="nick" ng-bind="vm.user.nick"></span><a class="btn btn-primary btn-xs active pull-right" ng-click="logout()">Logout</a></p>
             <p>Would you like to make a chat room?</p>
 
             <form role="form">
@@ -14,7 +14,7 @@
         </section>
     </div>
 
-    <div class="col-lg-6 col-md-6">
+    <div class="col-lg-6 col-md-6 col-sm-6">
         <!-- right column -->
         <section class="box" id="roomList">
             <p>This is a list of avaiable chat rooms!</p>
@@ -22,8 +22,8 @@
             <ul>
                 <li ng-repeat="(title, room) in vm.rooms">
                     <a class="roomTitle" ng-click="joinRoom(title)" ng-bind="title"></a>
-                    <span class="opCount">Ops: <span ng-bind="room.ops | count"></span></span>
-                    <span class="userCount">Users: <span ng-bind="room.users | count"></span></span>
+                    <span class="opCount"><span tooltip="{{room.ops | users}}">Ops: <span ng-bind="room.ops | count"></span></span></span>
+                    <span class="userCount"><span tooltip="{{room.users | users}}">Users: <span ng-bind="room.users | count"></span></span></span>
                     <p><span ng-bind="room.topic"></span> <a ng-show="isOp(room)" class="btn btn-primary btn-xs active pull-right" ng-click="showSetTopic(room, title)">Set topic</a></p>
                 </li>
 

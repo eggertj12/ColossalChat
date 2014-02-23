@@ -31,9 +31,12 @@ function($q, Socket) {
             return d.promise;
         },
 
+        partRoom: function(room) {
+            Socket.emit('partroom', room);
+        },
+
         sendmsg: function(msgdata) {
           // chatserver
-            console.log('Sending a msg', msgdata);
             Socket.emit('sendmsg', msgdata);
         },
 
@@ -46,6 +49,7 @@ function($q, Socket) {
             Socket.emit('privatemsg', sendObj, function(available) {
                 d.resolve(available);
             });
+            return d.promise;
         },
 
         kickUser: function(usern, roomn) {
@@ -104,6 +108,10 @@ function($q, Socket) {
             return d.promise;
         },
 
+        logout: function() {
+            Socket.emit('logout');
+        },
+
         // ------------------------------------------------
         // register listeners
         // ------------------------------------------------
@@ -126,6 +134,10 @@ function($q, Socket) {
 
         onServerMessage: function(handler) {
             Socket.on('servermessage', handler);
+        },
+
+        onRecvPrvMessage: function(handler) {
+            Socket.on('recv_privatemsg', handler);
         }
     };
 }]);

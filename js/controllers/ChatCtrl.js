@@ -42,6 +42,12 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
         $scope.vm.room = '';
     };
 
+    $scope.logout = function() {
+        ChatBackend.logout();
+        User.loggedIn = false;
+        $location.path('/');
+    };
+
     $scope.joinRoom = function(room) {
         promise = ChatBackend.joinRoom({
             room: room

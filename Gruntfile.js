@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= ccConfig.app %>',
-                    src: ['*.html', 'views/*.html'],
+                    src: ['*.html', 'views/*.html', 'templates/*.html'],
                     dest: '<%= ccConfig.dist %>'
                 }]
             }
@@ -87,8 +87,7 @@ module.exports = function(grunt) {
                     dest: '<%= ccConfig.dist %>',
                     src: [
                         'bower_components/**/*',
-                        'images/{,*/}*.{gif,webp}',
-                        'styles/fonts/*'
+                        'images/{,*/}*.{gif,webp}'
                     ]
                 }, {
                     expand: true,
@@ -109,6 +108,7 @@ module.exports = function(grunt) {
                         'bower_components/**/*',
                         'styles/**/*',
                         'views/**/*',
+                        'templates/**/*',
                         'js/**/*',
                         'index.html'
                     ]
@@ -124,6 +124,7 @@ module.exports = function(grunt) {
                         'bower_components/**/*',
                         'styles/**/*',
                         'views/**/*',
+                        'templates/**/*',
                         'js/**/*',
                         'index.html'
                     ]
@@ -142,6 +143,7 @@ module.exports = function(grunt) {
                 files: [
                     'js/**/*.js',
                     'views/**/*.html',
+                    'templates/**/*.html',
                     'styles/**/*.css'
                 ],
                 tasks: ['jshint', 'copy:dev'],
@@ -169,7 +171,7 @@ module.exports = function(grunt) {
     // grunt.registerTask('concat', ['concat']);
     // grunt.registerTask('uglify', ['uglify']);
     // grunt.registerTask('default', ['jshint', 'uglify']);
-    grunt.registerTask('dist', ['clean:dist', 'useminPrepare', 'jshint', 'concat', 'uglify', 'copy:dist', 'htmlmin', 'usemin']);
+    grunt.registerTask('dist', ['clean:dist', 'useminPrepare', 'jshint', 'concat', 'uglify', 'cssmin', 'copy:dist', 'htmlmin', 'usemin']);
     grunt.registerTask('default', ['clean:dev', 'jshint', 'copy:devfull']);
 
 };

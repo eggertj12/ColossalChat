@@ -1,25 +1,42 @@
 <div ng-controller="RoomCtrl">
-<button ng-click="showDisplayMenu()">Show display menu</button>
-<h1>Chatroom: {{vm.msg.roomName}}</h1>
-    <col>
-        <h2>Hello {{vm.user.nick}}</h2>
-        <h3>Messages</h3>
-        <p ng-repeat="message in chat.messages">{{message.nick}}:{{message.message}}</p>
-    </col>
-    <col>
-        <h3>Users</h3>
-                <p ng-click="actionUser(user)" ng-repeat="user in chat.users">{{user}}</p>
-                <p ng-click="actionUser(user)" ng-repeat="user in chat.ops">{{user}}</p>
-            </col>
-        <div ng-if="vm.dostuff.displayMenu">
-            <h1>LOOK AT ME</h1>
-            <button ng-click ="">Send private message</button>
-            <button ng-click ="">Kick user</button>
-            <button ng-click ="">Ban user</button>
-            <button ng-click ="">Promote user></button>
-            <button ng-click ="">Demote user</button>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h2>Chatroom: {{vm.msg.roomName}}<a class="btn btn-primary btn-xs active pull-right" ng-click="leave()">Leave room</a></h2>
         </div>
-    <input placeholder="Your message here" data-ng-model="inputText">
-    <button ng-click="sendMsg()">Hey</button>
-    <button ng-click="createTestRoom()">Create test room</button>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <!-- left column -->
+            <section class="box">
+                <p>Welcome: <span class="nick" ng-bind="vm.user.nick"></span><a class="btn btn-primary btn-xs active pull-right" ng-click="logout()">Logout</a></p>
+
+                <form role="form">
+                <div ng-if="vm.dostuff.displayMenu">
+                    <button class="btn" ng-click ="sendPrvmsg()">Send private message</button>
+                    <button class="btn" ng-click ="">Kick user</button>
+                    <button class="btn" ng-click ="">Ban user</button>
+                    <button class="btn" ng-click ="">Promote user></button>
+                    <button class="btn" ng-click ="">Demote user</button>
+                </div>
+
+                <div class="form-group">
+                    <input placeholder="Your message here" data-ng-model="inputText">
+                </div>
+                <button class="btn btn-default" ng-click="sendMsg()">Hey</button>
+                <button class="btn" ng-click="createTestRoom()">Create test room</button>
+                </form>
+                <h3>Messages</h3>
+                <p ng-repeat="message in vm.chat.messages">{{message.nick}}:{{message.message}}</p>
+            </section>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <!-- right column -->
+            <section class="box" id="messageList">
+                <h3>Users</h3>
+                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.users">{{user}}</p>
+                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.ops">{{user}}</p>
+            </section>
+        </div>
+    </div>
 </div>

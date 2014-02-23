@@ -8,7 +8,7 @@
 
         <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
         
-        <!-- build:js js/components.js -->
+        <!-- build:css styles/styles.css -->
         <link rel="stylesheet" href="styles/bootstrap.min.css">
         <link rel="stylesheet" href="styles/styles.css">
         <!-- endbuild -->
@@ -19,7 +19,7 @@
         <header>
             <h1>Colossal Chat</h1>
         </header>
-        <div id="templateContainer" data-ng-view="">
+        <div id="templateContainer" class="container" data-ng-view="">
         </div>
 
         <!-- Get socket.io from chatServer -->
@@ -32,10 +32,11 @@
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/momentjs/moment.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
-        <script src="bower_components/angular-socket-io/socket.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <!-- endbuild -->
+        <!-- this component is not minification safe -->
+        <script src="bower_components/angular-socket-io/socket.js"></script>
 
         <!-- Application code -->
         <!-- build:js js/app.js -->
@@ -49,8 +50,8 @@
         <script src="js/controllers/MainCtrl.js"></script>
         <script src="js/controllers/ChatCtrl.js"></script>
         <script src="js/controllers/RoomCtrl.js"></script>
-        <script src="js/services/ModalInputCtrl.js"></script>
         <script src="js/filters/Count.js"></script>
+        <script src="js/filters/Users.js"></script>
         <!-- endbuild -->
     </body>
 </html>

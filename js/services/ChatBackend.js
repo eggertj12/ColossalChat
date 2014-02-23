@@ -31,6 +31,10 @@ function($q, Socket) {
             return d.promise;
         },
 
+        partRoom: function(room) {
+            Socket.emit('partroom', room);
+        },
+
         sendmsg: function(msgdata) {
           // chatserver
             Socket.emit('sendmsg', msgdata);
@@ -102,6 +106,10 @@ function($q, Socket) {
                 d.resolve(success);
             });
             return d.promise;
+        },
+
+        logout: function() {
+            Socket.emit('logout');
         },
 
         // ------------------------------------------------

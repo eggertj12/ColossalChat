@@ -71,10 +71,20 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
        // promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
         promise = ChatBackend.sendPrvmsg(User.nick, 'hi');
         promise.then(function(available){
+            console.log('pm: ', available);
         });
     };
 
+    $scope.leave = function() {
+        ChatBackend.partRoom(Room.roomName);
+        $location.path('/chat/');
+    };
 
+    $scope.logout = function() {
+        ChatBackend.logout();
+        User.loggedIn = false;
+        $location.path('/');
+    };
 
     // Chatbackend handlers
 
@@ -107,5 +117,8 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     ChatBackend.onUpdateUsers($scope.updateusersHandler);
     ChatBackend.onUserList($scope.userlistHandler);
     ChatBackend.onRecvPrvMessage($scope.recvPrvmsgHandler);
+
+    // Request user list.
+    ChatBackend.requestUserlist();
 
 }]);
