@@ -18,13 +18,11 @@ function($q, Socket) {
         },
 
         getRooms: function() {
-            console.log('Get a roomlist!');
             Socket.emit('rooms');
         },
 
         joinRoom: function(room) {
             var d = $q.defer();
-            console.log('Room: ', room, ' created.');
             Socket.emit('joinroom', room, function(available, reason) {
                 d.resolve(available, reason);
             });

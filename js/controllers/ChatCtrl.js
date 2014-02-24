@@ -88,6 +88,8 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
 
     };
 
+
+
     // -----------------------------------------
     // Listeners
     // -----------------------------------------
@@ -105,9 +107,18 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
         }
     };
 
+    $scope.updateusersHandler = function (roomn, usersn, opsn) {
+        if (roomn === Room.roomName) {
+            Room.users = usersn;
+            Room.ops = opsn;
+            console.log('user list updated in chat controller');
+        }
+    };
+
     // Set up listeners.
     ChatBackend.onRoomlist($scope.roomlistHandler);
     ChatBackend.onServerMessage($scope.serverMessageHandler);
+    ChatBackend.onUpdateUsers($scope.updateusersHandler);
 
     // Everyone automatically joins the lobby but not redirected to there
     if (User.loggedIn) {
