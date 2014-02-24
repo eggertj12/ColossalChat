@@ -33,10 +33,12 @@
                 </div>
                 <div class="dropdown-menu">
                     <a class="btn" ng-click="dispPrvmsg()">Send private message</a>
+                    <div ng-if="vm.dostuff.displayOp">
                     <a class="btn" ng-click="kickUser()">Kick user</a>
                     <a class="btn" ng-click="banUser()">Ban user</a>
                     <a class="btn" ng-click="opUser()">Promote user</a>
                     <a class="btn" ng-click="deOpUser()">Demote user</a>
+                    </div>
                 </div>
                 <div ng-if="vm.dostuff.displayPmsgInput">
                     <input placeholder="Enter private message" data-ng-model="vm.pmsg.text">

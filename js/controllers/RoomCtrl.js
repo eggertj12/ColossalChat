@@ -31,7 +31,8 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
         dostuff: {
             displayMenu: false,
             selUser: '',
-            displayPmsgInput: false
+            displayPmsgInput: false,
+            displayOp: false
         },
 
         user: User
@@ -68,6 +69,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
 
     
     $scope.actionUser = function(user) {
+        $scope.vm.dostuff.displayOp = $scope.isOp(Room);
         $scope.vm.dostuff.displayMenu = true;
         $scope.vm.dostuff.selUser = user;
     };
@@ -161,7 +163,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
         if (roomn === Room.roomName) {
             Room.users = usersn;
             Room.ops = opsn;
-            console.log('user list updated In room controller');
+            $scope.vm.dostuff.displayOp = $scope.isOp(Room);
         }
     };
     // Too global
