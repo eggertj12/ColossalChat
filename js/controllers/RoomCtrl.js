@@ -19,7 +19,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
 
         pmsg : {
             userName : '',
-            msg: '',
+            text: '',
             displayPmsgs: false
         },
 
@@ -30,17 +30,25 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
         
         dostuff: {
             displayMenu: false,
-            selUser: ''
+            selUser: '',
+            displayPmsgInput: false
         },
 
         user: User
     };
     $scope.vm.msg.roomName = Room.roomName;
 
+    //simple markup action handlers
+
     $scope.showDisplayMenu = function() {
         $scope.vm.dostuff.displayMenu = true;
         console.log($scope.vm.dostuff.displayMenu);
     };
+
+    $scope.dispPrvmsg = function() {
+        $scope.vm.dostuff.displayPmsgInput = true;
+    };
+
 
     $scope.createTestRoom = function () {
         $scope.vm.msg.roomName = 'IX';
@@ -51,6 +59,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
             room: 'IX'
         });
     };
+
 
     $scope.sendMsg = function() {
         $scope.vm.msg.roomName = Room.roomName;
@@ -66,13 +75,30 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     };
 
     // actions on users
+
+
+
     $scope.sendPrvmsg = function() {
         var promise;
        // promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
-        promise = ChatBackend.sendPrvmsg(User.nick, 'hi');
+        promise = ChatBackend.sendPrvmsg($scope.vm.dostuff.selUser, $scope.vm.pmsg.text);
         promise.then(function(available){
             console.log('pm: ', available);
         });
+        $scope.vm.dostuff.displayPmsgInput = false;
+    };
+
+    // admin/op stuff
+
+    $scope.isOp = function(room) {
+        return angular.isDefined(room.ops[User.nick]);
+    };
+
+    $scope.kickUser = function() {
+        if($scope.isOp($scope.chat.room)) {
+            ChatBackend.kickUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
+        }
+        console.log('Not an op');
     };
 
     $scope.leave = function() {
@@ -104,11 +130,17 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     };
     // Too global
     $scope.userlistHandler = function (userlist) {
-        $scope.vm.chat.users = userlist;
+    //    $scope.vm.chat.users = userlist;
     };
 
     $scope.recvPrvmsgHandler = function(from, msg) {
+        
+        // needs more 
         console.log(from, ': ', msg);
+    };
+
+    $scope.userKickedHandler = function() {
+
     };
 
     //Bind chatbackend thingamabobs
@@ -117,6 +149,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     ChatBackend.onUpdateUsers($scope.updateusersHandler);
     ChatBackend.onUserList($scope.userlistHandler);
     ChatBackend.onRecvPrvMessage($scope.recvPrvmsgHandler);
+    ChatBackend.onKicked($scope.userKickedHandler);
 
     // Request user list.
     ChatBackend.requestUserlist();

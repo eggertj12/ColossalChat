@@ -138,6 +138,10 @@ function($q, Socket) {
 
         onRecvPrvMessage: function(handler) {
             Socket.on('recv_privatemsg', handler);
+        },
+
+        onKicked: function(handler) {
+            Socket.on('Kicked', handler);
         }
     };
 }]);
