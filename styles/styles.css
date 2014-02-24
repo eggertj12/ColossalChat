@@ -16,7 +16,9 @@ header {
   width: 100%;
   padding: 10px;
   text-align: left;
-  margin-bottom: 10px;
+  margin: 0px;
+  height:10%;
+  min-height:50px;
 }
 
 header h1 {
@@ -25,8 +27,9 @@ header h1 {
   text-shadow: 0px 0px 4px #aaa;
 }
 
-section#templateContainer {
-  padding-top: 80px;
+div#templateContainer {
+  height: 90%;
+  min-height: 450px;
 }
 
 section#login {
