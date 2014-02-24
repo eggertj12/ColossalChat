@@ -5,7 +5,7 @@
             <p>Welcome: <span class="nick" ng-bind="vm.user.nick"></span><a class="btn btn-primary btn-xs active pull-right" ng-click="logout()">Logout</a></p>
             <p>Would you like to make a chat room?</p>
 
-            <form role="form">
+            <form role="form-inline">
             <div class="form-group">
                 <input class="form-control" type="text" placeholder="{{lang.roomName}}" data-ng-model="vm.room" autofocus="autofocus" /><br />
             </div>

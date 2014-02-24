@@ -22,11 +22,6 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
         pass: ''
     };
 
-    $scope.roomlistHandler = function(data) {
-        console.log(data);
-        $scope.vm.rooms = data;
-    };
-
     $scope.addRoom = function() {
         promise = ChatBackend.joinRoom({
             room: $scope.vm.room
@@ -48,7 +43,7 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
         $location.path('/');
     };
 
-    $scope.joinRoom = function(room) {
+    $scope.joinRoom = function(room, noRedirect) {
         promise = ChatBackend.joinRoom({
             room: room
         });
@@ -57,7 +52,9 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
             console.log('Room joined: ', result, reason);
             if (result) {
                 Room.roomName = room;
-                $location.path('/room');
+                if (!noRedirect) {
+                    $location.path('/room');
+                }
             }
         });
     };
@@ -91,7 +88,33 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
 
     };
 
+    // -----------------------------------------
+    // Listeners
+    // -----------------------------------------
+    $scope.roomlistHandler = function(data) {
+        $scope.vm.rooms = data;
+    };
+
+    $scope.serverMessageHandler = function(type, room) {
+        if (type === 'join' && room !== Room.roomName) {
+            // Someone else created a room, call for updated list
+            ChatBackend.getRooms();
+        } else {
+            // All other servermessages relate to users joining or leaving, so update roomlist also
+            ChatBackend.getRooms();
+        }
+    };
+
+    // Set up listeners.
     ChatBackend.onRoomlist($scope.roomlistHandler);
+    ChatBackend.onServerMessage($scope.serverMessageHandler);
+
+    // Everyone automatically joins the lobby but not redirected to there
+    if (User.loggedIn) {
+        $scope.joinRoom('lobby', true);
+    }
+
+    // request the roomlist
     ChatBackend.getRooms();
 
 }]);
