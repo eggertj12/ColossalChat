@@ -95,8 +95,46 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     };
 
     $scope.kickUser = function() {
-        if($scope.isOp($scope.chat.room)) {
-            ChatBackend.kickUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
+        var promise;
+        if($scope.isOp(Room)) {
+            promise = ChatBackend.kickUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
+            promise.then(function(available) {
+                // This is cargo cult programming
+                console.log(available);
+            });
+        }
+        console.log('Not an op');
+    };
+
+    $scope.opUser = function() {
+        var promise;
+        if($scope.isOp(Room)) {
+            promise = ChatBackend.opUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
+            promise.then(function(available) {
+                console.log(available);
+            });
+        }
+        console.log('Not an op');
+    };
+
+    $scope.deOpUser = function() {
+        var promise;
+        if($scope.isOp(Room)) {
+            promise = ChatBackend.deOpUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
+            promise.then(function(available) {
+                console.log(available);
+            });
+        }
+        console.log('Not an op');
+    };
+
+    $scope.banUser = function() {
+        var promise;
+        if($scope.isOp(Room)) {
+            promise = ChatBackend.banUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
+            promise.then(function(available) {
+                console.log(available);
+            });
         }
         console.log('Not an op');
     };
@@ -131,6 +169,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     // Too global
     $scope.userlistHandler = function (userlist) {
     //    $scope.vm.chat.users = userlist;
+        console.log(userlist);
     };
 
     $scope.recvPrvmsgHandler = function(from, msg) {
@@ -139,8 +178,28 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
         console.log(from, ': ', msg);
     };
 
-    $scope.userKickedHandler = function() {
+    $scope.userKickedHandler = function(roomn, usern, usersocketn) {
+        console.log(roomn, usern, usersocketn);
+        if(usern === $scope.vm.user.nick) {
+            $scope.leave();
+        }
 
+    };
+
+    $scope.userOppedHandler = function(roomn, usern, usersocketn) {
+        console.log('Just opped ', usersocketn, ' in ', roomn);
+        // Updateusershandler should take care of updating lists
+    };
+
+    $scope.userDeOppedHandler = function(roomn, usern, usersocketn) {
+        console.log(usern, usersocketn, ' was just deopped in ', roomn);
+    };
+
+    $scope.userBannedHandler = function(roomn, usern, usersocketn) {
+        console.log(usern, usersocketn, 'was just banned in ', roomn);
+        if(usern === $scope.vm.user.nick) {
+            $scope.leave();
+        }
     };
 
     //Bind chatbackend thingamabobs
@@ -150,6 +209,9 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     ChatBackend.onUserList($scope.userlistHandler);
     ChatBackend.onRecvPrvMessage($scope.recvPrvmsgHandler);
     ChatBackend.onKicked($scope.userKickedHandler);
+    ChatBackend.onOpped($scope.userOppedHandler);
+    ChatBackend.onDeOpped($scope.userDeOppedHandler);
+    ChatBackend.onBanUser($scope.userBannedHandler);
 
     // Request user list.
     ChatBackend.requestUserlist();

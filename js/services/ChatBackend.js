@@ -74,7 +74,7 @@ function($q, Socket) {
             });
         },
 
-        deopUser: function(usern, roomn) {
+        deOpUser: function(usern, roomn) {
             var deopObj = {
                 user: usern,
                 room: roomn
@@ -141,7 +141,20 @@ function($q, Socket) {
         },
 
         onKicked: function(handler) {
-            Socket.on('Kicked', handler);
+            Socket.on('kicked', handler);
+        },
+
+        onOpped: function(handler) {
+            Socket.on('opped', handler);
+        },
+
+        onDeOpped: function(handler) {
+            Socket.on('deopped', handler);
+        },
+
+        onBanUser: function(handler) {
+            Socket.on('banned', handler);
         }
+
     };
 }]);
