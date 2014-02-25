@@ -32,7 +32,8 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
             displayMenu: false,
             selUser: '',
             displayPmsgInput: false,
-            displayOp: false
+            displayOp: false,
+            pass: ''
         },
 
         user: User
@@ -150,6 +151,19 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
             promise = ChatBackend.banUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
             promise.then(function(available) {
                 console.log(available);
+            });
+        }
+        console.log('Not an op');
+    };
+
+    // room actions
+
+    $scope.setPassword = function () {
+        var promise;
+        if($scope.isOp(Room)) {
+            promise = ChatBackend.setPassword(Room.roomName, $scope.vm.dostuff.pass);
+            promise.then(function(success) {
+                console.log(success);
             });
         }
         console.log('Not an op');

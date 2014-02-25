@@ -9,7 +9,9 @@ angular.module('ColossalChat')
             topic: '',
             msgs: [],
             users: [],
-            ops: []
+            ops: [],
+            pass: 'test',
+            pwd: false
         };
     }
 ]);

@@ -26,6 +26,7 @@ function($q, Socket) {
             Socket.emit('joinroom', room, function(available, reason) {
                 d.resolve({available: available, reason: reason});
             });
+            // reason gets lost after this
             return d.promise;
         },
 
@@ -105,6 +106,18 @@ function($q, Socket) {
         setTopic: function(topic) {
             var d = $q.defer();
             Socket.emit('settopic', topic, function(success) {
+                d.resolve(success);
+            });
+            return d.promise;
+        },
+
+        setPassword: function(roomn, pass) {
+            var d = $q.defer();
+            var passwordObj = {
+                room: roomn,
+                password: pass
+            };
+            Socket.emit('setpassword', passwordObj, function(success) {
                 d.resolve(success);
             });
             return d.promise;

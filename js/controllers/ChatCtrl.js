@@ -22,6 +22,10 @@ function($scope, $location, $modal, $window, Lang, ChatBackend, User, Room) {
         pass: ''
     };
 
+    $scope.contact = function() {
+        console.log('ChatCrl was just contacted');
+    };
+
     $scope.addRoom = function() {
         promise = ChatBackend.joinRoom({
             room: $scope.vm.room
@@ -49,13 +53,14 @@ function($scope, $location, $modal, $window, Lang, ChatBackend, User, Room) {
     };
 
     $scope.joinRoom = function(room, noRedirect) {
-        
         if (room === Room.roomName) {
             // If already in room just redirect
             $location.path('/room');
         } else {
             promise = ChatBackend.joinRoom({
-                room: room
+                room: room,
+                // two people in the same function and so little time
+                pass: $scope.vm.pass
             });
 
             promise.then(function(result) {
@@ -66,7 +71,11 @@ function($scope, $location, $modal, $window, Lang, ChatBackend, User, Room) {
                         $location.path('/room');
                     }
                 } else {
-                    $window.alert('Can not join: ' + result.reason);
+                    if (result.reason === 'banned') {
+                        $window.alert('Can not join room ' + room + ': You are banned!');
+                    } else if (result.reason === 'wrong password') {
+                        $window.alert('Can not join room ' + room + ': Wrong password.');
+                    }
                 }
             });
         }
