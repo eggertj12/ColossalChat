@@ -1,4 +1,4 @@
-<div ng-controller="RoomCtrl">
+<div class="row">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
             <h2>Chatroom: {{vm.msg.roomName}}<a class="btn btn-primary btn-xs active pull-right" ng-click="leave()">Leave room</a></h2>
@@ -20,7 +20,7 @@
                 <button class="btn" ng-click="createTestRoom()">Create test room</button>
                 </form>
                 <h3>Messages</h3>
-                <p ng-repeat="message in vm.chat.messages">{{message.nick}}:{{message.message}}</p>
+                <p ng-repeat="message in vm.chat.messages"><small>{{message.time}}</small> {{message.nick}} : {{message.message}}</p>
             </section>
         </div>
 
@@ -32,7 +32,7 @@
                 <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.users">{{user}}</p>
                 </a>
                 <div class="dropdown-menu">
-                    <a class="btn" ng-click="dispPrvmsg()">Send private message</a>
+                    <a class="btn" ng-click="startPrvchat()">Send private message</a>
                     <a class="btn" ng-click="kickUser">Kick user</a>
                     <a class="btn" ng-click="">Ban user</a>
                     <a class="btn" ng-click="">Promote user</a>
@@ -48,4 +48,22 @@
             </section>
         </div>
     </div>
+    <aside id="pmContainer">
+        <article ng-repeat="(user, chat) in vm.user.pms">
+            <header ng-click="chat.open = !chat.open">
+                <h1 ng-bind="user"></h1>
+            </header>
+            <section collapse="!chat.open" class="pmBody">
+                <ul autoscroll-down>
+                    <li ng-repeat="message in chat.messages" ng-class="{self: message.from == 'me'}">{{message.text}}</li>
+                </ul>
+                <form role="form">
+                    <div class="form-group">
+                        <input class="form-control input-sm"  type="text" ng-model="chat.msg" />
+                    </div>
+                    <button class="btn btn-xs" ng-click="sendPrvmsg(user, chat.msg);chat.msg = '';">Send message</button>
+                </form>
+            </section>
+        </article>
+    </aside>
 </div>

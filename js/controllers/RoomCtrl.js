@@ -77,15 +77,47 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     // actions on users
 
 
+    $scope.startPrvchat = function() {
+        var user = $scope.vm.dostuff.selUser,
+            pms = $scope.vm.user.pms;
 
-    $scope.sendPrvmsg = function() {
+        if (angular.isDefined(pms[user])) {
+            pms[user].open = true;
+        } else {
+            pms[user] = {
+                open: true,
+                messages: []
+            };
+        }
+    };
+
+
+    $scope.sendPrvmsg = function(user, msg) {
         var promise;
        // promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
-        promise = ChatBackend.sendPrvmsg($scope.vm.dostuff.selUser, $scope.vm.pmsg.text);
-        promise.then(function(available){
-            console.log('pm: ', available);
+        promise = ChatBackend.sendPrvmsg(user, msg);
+        promise.then(function(res){
+            $scope.vm.user.pms[user].messages.push({text: msg, from: 'me'});
+            if (res) {
+            }
         });
-        $scope.vm.dostuff.displayPmsgInput = false;
+    };
+
+    $scope.recvPrvmsgHandler = function(from, msg) {
+        var pms = $scope.vm.user.pms;
+
+        if (angular.isDefined(pms[from])) {
+            pms[from].open = true;
+            pms[from].messages.push({text: msg, from: from});
+        } else {
+            pms[from] = {
+                open: true,
+                messages: [{text: msg, from: from}]
+            };
+        }
+        
+        // needs more 
+        console.log(from, ': ', msg);
     };
 
     // admin/op stuff
@@ -131,12 +163,6 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     // Too global
     $scope.userlistHandler = function (userlist) {
     //    $scope.vm.chat.users = userlist;
-    };
-
-    $scope.recvPrvmsgHandler = function(from, msg) {
-        
-        // needs more 
-        console.log(from, ': ', msg);
     };
 
     $scope.userKickedHandler = function() {

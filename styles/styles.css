@@ -10,7 +10,7 @@ body {
   position: relative;
 }
 
-header {
+header.main {
   top: 0;
   left: 0;
   width: 100%;
@@ -25,6 +25,10 @@ header h1 {
   font-size:90%;
   margin:0 10px;
   text-shadow: 0px 0px 4px #aaa;
+}
+
+h1, h2, h3, h4 {
+  margin-top: 0;
 }
 
 div#templateContainer {
@@ -63,3 +67,57 @@ section#roomList .roomTitle {
   color:#000;
   cursor: pointer;
 }
+
+aside#pmContainer {
+  position:fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: right;
+}
+
+aside#pmContainer article {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 2px solid rgba(220, 220, 220, 0.7);
+  padding: 0px;
+  margin: 0 10px;
+  width: 20%;
+  background: white;
+  display:inline-block;
+  vertical-align: bottom;
+}
+
+aside#pmContainer header {
+  height:auto;
+  border-bottom:1px solid #aaa;
+  background: #f7f7f7;
+}
+
+aside#pmContainer header h1 {
+  line-height: 2;
+}
+
+aside#pmContainer section.pmBody {
+  padding: 0 5px 5px;
+}
+
+aside#pmContainer ul {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  height:150px;
+  overflow: auto;
+}
+
+aside#pmContainer ul li {
+  list-style: none;
+  margin: 0;
+  padding: 3px 0;
+  border-bottom: 1px solid #eee;
+}
+
+aside#pmContainer ul li.self {
+  color:blue;
+}
+

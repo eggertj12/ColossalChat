@@ -109,12 +109,22 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
     ChatBackend.onRoomlist($scope.roomlistHandler);
     ChatBackend.onServerMessage($scope.serverMessageHandler);
 
+    // and remove them on scope destruction
+    $scope.$on('$destroy', function() {
+        ChatBackend.onRoomlist(null);
+        ChatBackend.onServerMessage(null);
+    });
+
+
     // Everyone automatically joins the lobby but not redirected to there
-    if (User.loggedIn) {
-        $scope.joinRoom('lobby', true);
-    }
+
+    // Crashing the server for some reason
+    // if (User.loggedIn) {
+    //     $scope.joinRoom('lobby', true);
+    // }
 
     // request the roomlist
     ChatBackend.getRooms();
+    console.log('getRooms');
 
 }]);

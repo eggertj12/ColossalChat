@@ -1,11 +1,11 @@
-<div class="row" ng-controller="ChatCtrl">
+<div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6">
         <!-- left column -->
         <section class="box">
             <p>Welcome: <span class="nick" ng-bind="vm.user.nick"></span><a class="btn btn-primary btn-xs active pull-right" ng-click="logout()">Logout</a></p>
             <p>Would you like to make a chat room?</p>
 
-            <form role="form-inline">
+            <form class="form-inline" role="form">
             <div class="form-group">
                 <input class="form-control" type="text" placeholder="{{lang.roomName}}" data-ng-model="vm.room" autofocus="autofocus" /><br />
             </div>
@@ -17,7 +17,7 @@
     <div class="col-lg-6 col-md-6 col-sm-6">
         <!-- right column -->
         <section class="box" id="roomList">
-            <p>This is a list of avaiable chat rooms!</p>
+            <p>This is a list of available chat rooms!</p>
 
             <ul>
                 <li ng-repeat="(title, room) in vm.rooms">
