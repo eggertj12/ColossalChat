@@ -111,7 +111,12 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
         if (roomn === Room.roomName) {
             Room.users = usersn;
             Room.ops = opsn;
-            console.log('user list updated in chat controller');
+        }
+    };
+
+    $scope.updateChatHandler = function (roomid, history) {
+        if (roomid === Room.roomName) {
+            Room.msgs = history;
         }
     };
 
@@ -119,17 +124,19 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
     ChatBackend.onRoomlist($scope.roomlistHandler);
     ChatBackend.onServerMessage($scope.serverMessageHandler);
     ChatBackend.onUpdateUsers($scope.updateusersHandler);
+    ChatBackend.onUpdateChat($scope.updateChatHandler);
 
     // and remove them on scope destruction
     $scope.$on('$destroy', function() {
         ChatBackend.onRoomlist(null);
         ChatBackend.onServerMessage(null);
+        ChatBackend.onUpdateUsers(null);
+        ChatBackend.onUpdateChat(null);
     });
-
 
     // Everyone automatically joins the lobby but not redirected to there
 
-    // Crashing the server for some reason
+    // Repeatedly crashing the server for some reason
     // if (User.loggedIn) {
     //     $scope.joinRoom('lobby', true);
     // }

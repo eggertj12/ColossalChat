@@ -7,6 +7,7 @@ angular.module('ColossalChat')
         return {
             roomName: '',
             topic: '',
+            msgs: [],
             users: [],
             ops: []
         };

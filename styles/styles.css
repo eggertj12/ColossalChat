@@ -54,6 +54,14 @@ section#login {
   color: #f00;
 }
 
+.nick {
+  font-size: 105%;
+}
+
+a.pull-right {
+  margin-left:5px;
+}
+
 section#roomList {
 
 }
@@ -67,6 +75,38 @@ section#roomList .roomTitle {
   color:#000;
   cursor: pointer;
 }
+
+/* Chatroom layout */
+
+div#roomHeader {
+  height:10%;
+}
+
+div#roomMainRow {
+  height:80%;
+}
+
+div#roomMainRow>div {
+  height:100%;
+}
+
+div#roomMainRow section.box {
+  height:100%;
+}
+
+div#chatContainer, div#userContainer {
+  overflow-y: auto;
+}
+
+div#chatContainer {
+  height: 75%;
+}
+
+div#userContainer {
+  height: 90%;
+}
+
+/* Private message containers */
 
 aside#pmContainer {
   position:fixed;

@@ -35,7 +35,7 @@ $ bower install
 
 ## Building
 
-    Building a distribution package is done with grunt
+Building a distribution package is done with grunt
 
 ```
 $ grunt dist

@@ -24,7 +24,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
         },
 
         chat: {
-            messages: {},
+            messages: Room.msgs,
             room: Room
         },
         
@@ -49,24 +49,12 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
         $scope.vm.dostuff.displayPmsgInput = true;
     };
 
-
-    $scope.createTestRoom = function () {
-        $scope.vm.msg.roomName = 'IX';
-        $scope.vm.msg.userName = 'Tester';
-        User.name = 'Tester';
-        ChatBackend.addUser(User.name);
-        ChatBackend.joinRoom({
-            room: 'IX'
-        });
-    };
-
-
     $scope.sendMsg = function() {
         $scope.vm.msg.roomName = Room.roomName;
         $scope.vm.msg.msg = $scope.inputText;
         ChatBackend.sendmsg($scope.vm.msg);
+        $scope.inputText = '';
     };
-
     
     $scope.actionUser = function(user) {
         $scope.vm.dostuff.displayOp = $scope.isOp(Room);
@@ -75,8 +63,6 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     };
 
     // actions on users
-
-
     $scope.startPrvchat = function() {
         var user = $scope.vm.dostuff.selUser,
             pms = $scope.vm.user.pms;
@@ -94,11 +80,11 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
 
     $scope.sendPrvmsg = function(user, msg) {
         var promise;
-       // promise = ChatBackend.sendPrvmsg($scope.dostuff.selUser, $scope.dostuff.msg);
+
         promise = ChatBackend.sendPrvmsg(user, msg);
         promise.then(function(res){
-            $scope.vm.user.pms[user].messages.push({text: msg, from: 'me'});
             if (res) {
+                $scope.vm.user.pms[user].messages.push({text: msg, from: 'me'});
             }
         });
     };
@@ -115,15 +101,13 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
                 messages: [{text: msg, from: from}]
             };
         }
-        
-        // needs more 
-        console.log(from, ': ', msg);
     };
 
     // admin/op stuff
 
-    $scope.isOp = function(room) {
-        return angular.isDefined(room.ops[User.nick]);
+    $scope.isOp = function(room, user) {
+        user = (angular.isDefined(user) ? user : User.nick);
+        return angular.isDefined(room.ops[user]);
     };
 
     $scope.kickUser = function() {
@@ -198,8 +182,9 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
             $scope.vm.dostuff.displayOp = $scope.isOp(Room);
         }
     };
+
     // Too global
-    $scope.userlistHandler = function (userlist) {
+    $scope.userlistHandler = function () {
     };
 
     $scope.userKickedHandler = function(roomn, usern, usersocketn) {
@@ -236,6 +221,19 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
     ChatBackend.onOpped($scope.userOppedHandler);
     ChatBackend.onDeOpped($scope.userDeOppedHandler);
     ChatBackend.onBanUser($scope.userBannedHandler);
+
+    // and remove those same thingamsomethings on scope destruction
+    $scope.$on('$destroy', function() {
+        ChatBackend.onUpdateChat(null);
+        ChatBackend.onUpdateUsers(null);
+        ChatBackend.onUserList(null);
+        ChatBackend.onRecvPrvMessage(null);
+        ChatBackend.onKicked(null);
+        ChatBackend.onOpped(null);
+        ChatBackend.onDeOpped(null);
+        ChatBackend.onBanUser(null);
+    });
+
 
     // Request user list.
     ChatBackend.requestUserlist();
