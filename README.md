@@ -5,7 +5,7 @@ Webchat client based on websockets
 
 ## Installation
 
-    ColossalChat depends on chatserver.js which runs on `Node` server and for installation and building `npm`, `grunt` and `bower` are required.
+ColossalChat depends on chatserver.js which runs on `Node` server and for installation and building `npm`, `grunt` and `bower` are required.
 
 ### Chatserver
 
