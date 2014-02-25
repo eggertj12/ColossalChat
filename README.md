@@ -46,9 +46,9 @@ Which concatenates and minifies all files to `dist` directory which can be copie
 ## Usage
 
 Should be pretty self explanatory. 
-– Navigate to the URL of choice `localhost:8000` in case of running via python in default configuration (note that ColossalChat assumes chatserver to be located at `localhost:8080`)
-– Enter a nick of choice
-– You will be taken to the lobby from where you can navigate to available chat rooms, or create new ones.
-– Once inside a chat room, chat is available (surprise), and by clicking on a username private messaging to other users of the room. Ops of room also get extra commands for managing users.
+- Navigate to the URL of choice `localhost:8000` in case of running via python in default configuration (note that ColossalChat assumes chatserver to be located at `localhost:8080`)
+- Enter a nick of choice
+- You will be taken to the lobby from where you can navigate to available chat rooms, or create new ones.
+- Once inside a chat room, chat is available (surprise), and by clicking on a username private messaging to other users of the room. Ops of room also get extra commands for managing users.
 
 
