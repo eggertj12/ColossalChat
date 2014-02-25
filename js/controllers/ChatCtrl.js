@@ -19,7 +19,8 @@ function($scope, $location, $modal, $window, Lang, ChatBackend, User, Room) {
         user: User,
         rooms: {},
         room: '',
-        pass: ''
+        pass: '',
+        dispPassInput: false
     };
 
     $scope.contact = function() {
@@ -75,6 +76,7 @@ function($scope, $location, $modal, $window, Lang, ChatBackend, User, Room) {
                         $window.alert('Can not join room ' + room + ': You are banned!');
                     } else if (result.reason === 'wrong password') {
                         $window.alert('Can not join room ' + room + ': Wrong password.');
+                        $scope.vm.dispPassInput = true;
                     }
                 }
             });
