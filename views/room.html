@@ -3,6 +3,11 @@
         <h2>Welcome <strong class="nick" ng-bind="vm.user.nick"></strong>, to chatroom <strong class="nick" ng-bind="vm.msg.roomName"></strong>
             <a class="btn btn-primary btn-xs active pull-right" ng-click="logout()">Logout</a>
             <a class="btn btn-primary btn-xs active pull-right" ng-click="leave()">Leave room</a>
+            <a class="btn btn-primary btn-xs active pull-right dropdown-toggle" ng-if="vm.dostuff.displayOp">Set Password</a>
+            <div class="dropdown-menu btn btn-xs active pull-right">
+                <input placeholder="Enter password here" data-ng-model="vm.dostuff.pass"/>
+                <button class="btn btn-primary btn-xs active pull-right" ng-click="setPassword()">OK!<button>
+            </div>
         </h2>
     </div>
 </div>

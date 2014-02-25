@@ -22,6 +22,10 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
         pass: ''
     };
 
+    $scope.contact = function() {
+        console.log('ChatCrl was just contacted');
+    };
+
     $scope.addRoom = function() {
         promise = ChatBackend.joinRoom({
             room: $scope.vm.room
@@ -45,7 +49,9 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
 
     $scope.joinRoom = function(room, noRedirect) {
         promise = ChatBackend.joinRoom({
-            room: room
+            room: room,
+            // two people in the same function and so little time
+            pass: $scope.vm.pass
         });
 
         promise.then(function(result, reason) {
@@ -55,6 +61,10 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
                 if (!noRedirect) {
                     $location.path('/room');
                 }
+            }
+            if(reason === 'wrong password')
+            {
+                console.log(room, ' is asking for a password');
             }
         });
     };
