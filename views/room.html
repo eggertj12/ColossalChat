@@ -34,6 +34,7 @@
         <section class="box" id="messageList">
             <h3>Users</h3>
             <div id="userContainer" autoscroll-down class="dropdown-toggle">
+            <a ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.ops"><span ng-show="isOp(vm.chat.room, user)">OP: </span>{{user}}<br></a>
             <a ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.users"><span ng-show="isOp(vm.chat.room, user)">OP: </span>{{user}}<br></a>
             </div>
             <div class="dropdown-menu">

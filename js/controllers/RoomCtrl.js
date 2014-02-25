@@ -127,7 +127,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
         if($scope.isOp(Room)) {
             promise = ChatBackend.opUser($scope.vm.dostuff.selUser, $scope.vm.chat.room.roomName);
             promise.then(function(available) {
-                console.log(available);
+                console.log('opping: ', available);
             });
         }
         console.log('Not an op');
@@ -157,6 +157,7 @@ function($scope, $location, Lang, ChatBackend, User, Room) {
 
     $scope.leave = function() {
         ChatBackend.partRoom(Room.roomName);
+        Room.roomName = '';
         $location.path('/chat/');
     };
 

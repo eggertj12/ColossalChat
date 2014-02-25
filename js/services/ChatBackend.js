@@ -24,7 +24,7 @@ function($q, Socket) {
         joinRoom: function(room) {
             var d = $q.defer();
             Socket.emit('joinroom', room, function(available, reason) {
-                d.resolve(available, reason);
+                d.resolve({available: available, reason: reason});
             });
             return d.promise;
         },
@@ -59,6 +59,7 @@ function($q, Socket) {
             Socket.emit('kick', kickObj, function(available) {
                 d.resolve(available);
             });
+            return d.promise;
         },
 
         opUser: function(usern, roomn) {
@@ -70,6 +71,7 @@ function($q, Socket) {
             Socket.emit('op', opObj, function(available) {
                 d.resolve(available);
             });
+            return d.promise;
         },
 
         deOpUser: function(usern, roomn) {
@@ -81,6 +83,7 @@ function($q, Socket) {
             Socket.emit('deop', deopObj, function(available) {
                 d.resolve(available);
             });
+            return d.promise;
         },
 
         banUser: function(usern, roomn) {
@@ -92,6 +95,7 @@ function($q, Socket) {
             Socket.emit('ban', banObj, function(available) {
                 d.resolve(available);
             });
+            return d.promise;
         },
 
         requestUserlist: function() {

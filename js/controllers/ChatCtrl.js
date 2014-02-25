@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('ColossalChat')
-.controller('ChatCtrl', ['$scope', '$location', '$modal', 'Lang', 'ChatBackend', 'User', 'Room',
-function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
+.controller('ChatCtrl', ['$scope', '$location', '$modal', '$window', 'Lang', 'ChatBackend', 'User', 'Room',
+function($scope, $location, $modal, $window, Lang, ChatBackend, User, Room) {
     var promise;
 
     // Shouldn't be here unless logged in
@@ -29,34 +29,47 @@ function($scope, $location, $modal, Lang, ChatBackend, User, Room) {
 
         promise.then(function(result) {
             console.log('Room created: ', result);
-            if (result) {
+            if (result.available) {
+                // Store created room so as not to double join
+                Room.roomName = $scope.vm.room;
+                $scope.vm.room = '';
+
+                // Get a list of rooms
                 ChatBackend.getRooms();
             }
         });
 
-        $scope.vm.room = '';
     };
 
     $scope.logout = function() {
+        // Clear state and redirect
         ChatBackend.logout();
         User.loggedIn = false;
         $location.path('/');
     };
 
     $scope.joinRoom = function(room, noRedirect) {
-        promise = ChatBackend.joinRoom({
-            room: room
-        });
+        
+        if (room === Room.roomName) {
+            // If already in room just redirect
+            $location.path('/room');
+        } else {
+            promise = ChatBackend.joinRoom({
+                room: room
+            });
 
-        promise.then(function(result, reason) {
-            console.log('Room joined: ', result, reason);
-            if (result) {
-                Room.roomName = room;
-                if (!noRedirect) {
-                    $location.path('/room');
+            promise.then(function(result) {
+                console.log('Room joined: ', result);
+                if (result.available) {
+                    Room.roomName = room;
+                    if (!noRedirect) {
+                        $location.path('/room');
+                    }
+                } else {
+                    $window.alert('Can not join: ' + result.reason);
                 }
-            }
-        });
+            });
+        }
     };
 
     $scope.isOp = function(room) {
