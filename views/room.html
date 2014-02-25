@@ -20,7 +20,7 @@
                 <button class="btn" ng-click="createTestRoom()">Create test room</button>
                 </form>
                 <h3>Messages</h3>
-                <p ng-repeat="message in vm.chat.messages"><small>{{message.time}}</small> {{message.nick}} : {{message.message}}</p>
+                <p ng-repeat="message in vm.chat.messages"><small>{{message.timestamp | time}}</small> {{message.nick}} : {{message.message}}</p>
             </section>
         </div>
 

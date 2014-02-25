@@ -92,6 +92,7 @@ aside#pmContainer header {
   height:auto;
   border-bottom:1px solid #aaa;
   background: #f7f7f7;
+  cursor: pointer;
 }
 
 aside#pmContainer header h1 {
