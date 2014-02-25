@@ -18,7 +18,9 @@
         <!-- right column -->
         <section class="box" id="roomList">
             <p>This is a list of available chat rooms!</p>
-
+            <div ng-if="vm.dispPassInput">
+                <input placeholder="Enter password here" data-ng-model="vm.pass">
+            </div>
             <ul>
                 <li ng-repeat="(title, room) in vm.rooms">
                     <a class="roomTitle" ng-click="joinRoom(title)" ng-bind="title"></a>
