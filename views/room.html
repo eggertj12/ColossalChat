@@ -28,15 +28,17 @@
             <!-- right column -->
             <section class="box" id="messageList">
                 <h3>Users</h3>
-                <a class="dropdown-toggle">
-                <p ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.users">{{user}}</p>
-                </a>
+                <div class="dropdown-toggle">
+                <a ng-click="actionUser(user)" ng-repeat="user in vm.chat.room.users">{{user}}<br></a>
+                </div>
                 <div class="dropdown-menu">
                     <a class="btn" ng-click="startPrvchat()">Send private message</a>
-                    <a class="btn" ng-click="kickUser">Kick user</a>
-                    <a class="btn" ng-click="">Ban user</a>
-                    <a class="btn" ng-click="">Promote user</a>
-                    <a class="btn" ng-click="">Demote user</a>
+                    <div ng-if="vm.dostuff.displayOp">
+                    <a class="btn" ng-click="kickUser()">Kick user</a>
+                    <a class="btn" ng-click="banUser()">Ban user</a>
+                    <a class="btn" ng-click="opUser()">Promote user</a>
+                    <a class="btn" ng-click="deOpUser()">Demote user</a>
+                    </div>
                 </div>
                 <div ng-if="vm.dostuff.displayPmsgInput">
                     <input placeholder="Enter private message" data-ng-model="vm.pmsg.text">
